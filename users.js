@@ -1,4 +1,6 @@
 const express = require('express');
+const bcrypt = require('bcrypt');
+
 var utils = require('./utils');
 
 var router = express.Router();
@@ -20,7 +22,7 @@ function saveUser(request, response) {
             {username: username}
         ]
     };
-
+//comment
     db.collection('users').find(query).toArray((err, result) => {
         if (result.length > 0) {
             setTimeout(function() {
@@ -30,7 +32,7 @@ function saveUser(request, response) {
             db.collection('users').insertOne({
                 email: email,
                 username: username,
-                password: password
+                password: bcrypt.hashSync(password, 10)
             }, (err, result) => {
                 if (err) {
                     response.send('Unable to register user');
