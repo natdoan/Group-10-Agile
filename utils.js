@@ -1,6 +1,6 @@
 const MongoClient = require('mongodb').MongoClient;
 
-var _dbUser = null;
+let _dbUser = null;
 
 getDb = () => {
     return _dbUser;
@@ -11,7 +11,7 @@ getObjectId = () => {
 };
 
 init = (callback) => {
-    MongoClient.connect('mongodb://localhost:27017/forumdb', (err, client) => {
+    MongoClient.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/forumdb', (err, client) => {
         if (err) {
             return console.log('Unable to connect to DB');
         }

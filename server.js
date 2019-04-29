@@ -12,6 +12,11 @@ const promises = require('./promises.js');
 
 const app = express();
 
+app.listen(port, () => {
+    console.log(`Server is up on the port ${port}`);
+    utils.init();
+});
+
 hbs.registerPartials(__dirname + '/views/partials');
 
 app.use(express.static(__dirname + '/public'));
@@ -73,9 +78,7 @@ app.get("/registration", checkAuthentication_false, (request, response) => {
 
 // Forum page
 app.get('/', async (request, response) => {
-    promises.messagePromise();
-
-    var messages = await promises.messagePromise();
+    let messages = await promises.messagePromise();
     
     response.render('forum.hbs', {
         title: 'Home',
@@ -94,13 +97,11 @@ app.get('/new_post', checkAuthentication, (request, response) => {
 
 // Dynamically generated endpoint for threads
 app.get('/thread/:id', async (request, response) => {
-    promises.threadPromise(request.params.id);
-    var thread = await promises.threadPromise(request.params.id);
+    let thread = await promises.threadPromise(request.params.id);
 
-    promises.replyPromise(request.params.id);
-    var replies = await promises.replyPromise(request.params.id);
+    let replies = await promises.replyPromise(request.params.id);
 
-    var isOP = false;
+    let isOP = false;
     if (request.user != undefined){
         if (request.user.username == thread.username) {
             isOP = true;
@@ -120,7 +121,3 @@ app.get('/thread/:id', async (request, response) => {
     });
 });
 
-app.listen(port, () => {
-    console.log(`Server is up on the port ${port}`);
-    utils.init();
-});
