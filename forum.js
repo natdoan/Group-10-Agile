@@ -13,17 +13,10 @@ router.post('/delete_post', delete_post);
 router.post('/edit_post', edit_post);
 
 function get_date() {
-    var date = new Date();
-    var day = date.getDate();
-    var month = date.getMonth();
-    var year = date.getFullYear();
-    var hours = date.getHours();
-    var minutes = date.getMinutes();
-    var seconds = date.getSeconds();
+    var offset = -7;
+    var date = new Date( new Date().getTime() + offset * 3600 * 1000).toUTCString().replace( / GMT$/, " PT" )
 
-    current_date = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
-
-    return current_date;
+    return date;
 }
 
 function add_post(request, response) {
@@ -108,4 +101,5 @@ function add_reply(request, response) {
     });
 }
 
-module.exports = router;
+module.exports = router
+//exporting get_date causes issues, fix later
