@@ -22,7 +22,11 @@
     "express": "^4.16.4",
     "express-session": "^1.15.6",
     "hbs": "^4.0.4",
+<<<<<<< HEAD
     "mongodb": "^3.2.2",
+=======
+    "mongodb": "^3.2.3",
+>>>>>>> master
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "request": "^2.88.0",

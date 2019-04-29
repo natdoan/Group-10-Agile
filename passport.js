@@ -5,7 +5,7 @@ const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 
-var router = express.Router();
+const router = express.Router();
 
 /* SETUP */
 router.use(express.static('public'));
@@ -25,10 +25,9 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-    var db = utils.getDb();
+    let db = utils.getDb();
 
-    // TODO: FIX THIS SHIT
-    var ObjectId = utils.getObjectId();
+    let ObjectId = utils.getObjectId();
 
     db.collection('users').findOne({
         _id: new ObjectId(id)
@@ -51,7 +50,7 @@ router.post('/login',
 /* LOCAL AUTHENTICATION */
 passport.use(new LocalStrategy((username, password, done) => {
 
-    var db = utils.getDb();
+    let db = utils.getDb();
 
     db.collection('users').findOne({
         username: username,
