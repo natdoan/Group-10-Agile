@@ -44,19 +44,22 @@ function add_post(request, response) {
 function edit_post(request, response) {
     var thread_id = request.body.id;
     var edited_message = request.body.edit_textarea;
-    
+
     var db = utils.getDb();
     var ObjectId = utils.getObjectId();
     
     db.collection('messages').findOneAndUpdate({
         _id: new ObjectId(thread_id)
     }, {
-        $set: {message: edited_message}
+        $set: {
+            message: edited_message,
+            edited_date: "Last edit: " + get_date()
+        }
     }, (err, result) => {
         if (err) {
             response.send('Unable to edit message');
         }
-        response.redirect('/');
+        response.redirect('back');
     });
 }
 
