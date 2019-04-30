@@ -11,7 +11,7 @@ getObjectId = () => {
 };
 
 init = (callback) => {
-    MongoClient.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/forumdb', (err, client) => {
+    MongoClient.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/forumdb', { useNewUrlParser: true }, (err, client) => {
         if (err) {
             return console.log('Unable to connect to DB');
         }
