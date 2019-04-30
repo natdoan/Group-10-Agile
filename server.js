@@ -121,6 +121,7 @@ app.get('/thread/:id', async (request, response) => {
         id: thread._id,
         reply: replies,
         isOP: isOP,
-        thread: thread
+        thread: thread,
+        edited_date: thread.edited_date
     });
 });
