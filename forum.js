@@ -1,6 +1,7 @@
 const express = require('express');
 const utils = require('./utils');
 const pass = require('./passport.js');
+const {DateTime} = require('luxon');
 
 var router = express.Router();
 
@@ -13,10 +14,7 @@ router.post('/delete_post', delete_post);
 router.post('/edit_post', edit_post);
 
 function get_date() {
-    var offset = -7;
-    var date = new Date( new Date().getTime() + offset * 3600 * 1000).toUTCString().replace( / GMT$/, " PT" )
-
-    return date;
+    return DateTime.local().toLocaleString(DateTime.DATETIME_SHORT);
 }
 
 function add_post(request, response) {
@@ -104,5 +102,7 @@ function add_reply(request, response) {
     });
 }
 
-module.exports = router
-//exporting get_date causes issues, fix later
+module.exports = {
+  get_date: get_date,
+  router: router
+}
