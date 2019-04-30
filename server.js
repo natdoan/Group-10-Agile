@@ -7,7 +7,7 @@ const hbs = require('hbs');
 const utils = require('./utils.js');
 const register = require('./users.js');
 const pass = require('./passport.js');
-const forum = require('./forum.js');
+const forum = require('./forum.js').router;
 const promises = require('./promises.js');
 
 const app = express();
