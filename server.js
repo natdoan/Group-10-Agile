@@ -7,10 +7,15 @@ const hbs = require('hbs');
 const utils = require('./utils.js');
 const register = require('./users.js');
 const pass = require('./passport.js');
-const forum = require('./forum.js');
+const forum = require('./forum.js').router;
 const promises = require('./promises.js');
 
 const app = express();
+
+app.listen(port, () => {
+    console.log(`Server is up on the port ${port}`);
+    utils.init();
+});
 
 hbs.registerPartials(__dirname + '/views/partials');
 
@@ -118,9 +123,4 @@ app.get('/thread/:id', async (request, response) => {
         isOP: isOP,
         thread: thread
     });
-});
-
-app.listen(port, () => {
-    console.log(`Server is up on the port ${port}`);
-    utils.init();
 });

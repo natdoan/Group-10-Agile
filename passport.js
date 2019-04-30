@@ -4,6 +4,7 @@ const utils = require('./utils');
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const bcrypt = require('bcrypt')
 
 var router = express.Router();
 
@@ -55,12 +56,14 @@ passport.use(new LocalStrategy((username, password, done) => {
 
     db.collection('users').findOne({
         username: username,
-        password: password
     }, (err, user) => {
-        if (err) {
+        if (err || user == undefined) {
+            return done(null, false);
+        } else if (bcrypt.compareSync(password, user.password)) {
+            return done(null, user);
+        } else {
             return done(null, false);
         }
-        return done(null, user);
     });
 }
 ));

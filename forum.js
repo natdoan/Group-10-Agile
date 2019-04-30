@@ -1,6 +1,7 @@
 const express = require('express');
 const utils = require('./utils');
 const pass = require('./passport.js');
+const {DateTime} = require('luxon');
 
 var router = express.Router();
 
@@ -13,17 +14,7 @@ router.post('/delete_post', delete_post);
 router.post('/edit_post', edit_post);
 
 function get_date() {
-    var date = new Date();
-    var day = date.getDate();
-    var month = date.getMonth();
-    var year = date.getFullYear();
-    var hours = date.getHours();
-    var minutes = date.getMinutes();
-    var seconds = date.getSeconds();
-
-    current_date = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
-
-    return current_date;
+    return DateTime.local().toLocaleString(DateTime.DATETIME_SHORT);
 }
 
 function add_post(request, response) {
@@ -108,4 +99,7 @@ function add_reply(request, response) {
     });
 }
 
-module.exports = router;
+module.exports = {
+  get_date: get_date,
+  router: router
+}
