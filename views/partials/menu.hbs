@@ -1,12 +1,36 @@
-<div id="menu">
-    <ul>
-        <li><a href="/" class="home_link"><img src="/images/home.png"/ class="home_icon"></a></li>
-        {{#if isAuthenticated}}
-            <li class="login"><a class="active" href="/logout">Logout</a></li>
-            <li class="login"><p class="username">Welcome, {{user.username}}</p></li>
-        {{else}}
-            <li class="login"><a class="active" href="/login">Login</a></li>
-            <li class="login"><a href="/registration">Register</a></li>
-        {{/if}}
-    </ul>
-</div>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+<nav class="navbar navbar-expand-lg">
+
+    <a class="navbar-brand home_link" href="/">
+        <img class="home_icon" src="/images/home.png" width="30" height="30" alt="">
+    </a>
+    <div id="navbarText" class="collapse navbar-collapse justify-content-end">
+        <ul class="navbar-nav">
+            {{#if isAuthenticated}}
+                <li class="nav-item">
+                    <p class="nav-link">Welcome, {{user.username}}</p>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+
+            {{else}}
+                <li class="nav-item">
+                    <a class="nav-link" href="/registration">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+
+            {{/if}}
+
+        </ul>
+    </div>
+
+</nav>
