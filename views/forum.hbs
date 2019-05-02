@@ -4,12 +4,13 @@
 {{> header}}
 
 <body>
-    {{> menu}}
+{{> menu}}
+<div class="flex-wrapper">
     <div id="message_container">
         <div class="register_add">
             <h1>{{heading}}</h1>
             {{#if isAuthenticated}}
-                <p><button><a href="/new_post">Add Post</a></button></p>
+                <p><a class="form_button" href="/new_post">Add Post</a></p>
             {{else}}
                 <p>
                     <a href="/registration" class="reg_link">Register a new account to start posting!</a>
@@ -21,11 +22,12 @@
         <ul class="message_list">
             {{#each message}}
                 <li><a href="/thread/{{_id}}">{{title}}</a>
-                <p class="poster">Posted by: {{username}} on {{date}}</p>
-                <hr></li>
+                    <p class="poster">Posted by: {{username}} on {{date}}</p>
+                    <hr></li>
             {{/each}}
         </ul>
     </div>
+</div>
 </body>
 
 {{> footer}}
