@@ -12,6 +12,7 @@ router.post('/add_post', add_post);
 router.post('/add_reply', add_reply);
 router.post('/delete_post', delete_post);
 router.post('/edit_post', edit_post);
+router.post('/edit_reply', edit_reply);
 
 function get_date() {
     return DateTime.local().toLocaleString(DateTime.DATETIME_SHORT);
@@ -102,7 +103,34 @@ function add_reply(request, response) {
     });
 }
 
+function edit_reply(request, response) {
+    var reply_id = request.body.reply_id;
+    // var reply_username = request.body.reply_username;
+    var edited_reply = request.body.edit_reply_textarea;
+
+    // console.log("reply id is " + reply_id);    
+    // console.log("reply's author is " + reply_username);
+    // console.log("current reply says " + edited_reply);
+
+    var db = utils.getDb();
+    var ObjectId = utils.getObjectId();
+    
+    db.collection('messages').findOneAndUpdate({
+        _id: new ObjectId(reply_id)
+    }, {
+        $set: {
+            message: edited_reply,
+            edited_date: "Last edit: " + get_date()
+        }
+    }, (err, result) => {
+        if (err) {
+            response.send('Unable to edit reply');
+        }
+        response.redirect('back');
+    });
+}
+
 module.exports = {
   get_date: get_date,
   router: router
-}
+};

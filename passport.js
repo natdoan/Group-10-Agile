@@ -4,7 +4,7 @@ const utils = require('./utils');
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
 
 var router = express.Router();
 
@@ -28,7 +28,6 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((id, done) => {
     var db = utils.getDb();
 
-    // TODO: FIX THIS SHIT
     var ObjectId = utils.getObjectId();
 
     db.collection('users').findOne({
