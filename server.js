@@ -131,7 +131,7 @@ app.get('/thread/:id', async (request, response) => {
     }
 
     response.render('thread.hbs', {
-        title: 'Thread',
+        title: thread.title,
         heading: thread.title,
         op_message: thread.message,
         poster: thread.username,

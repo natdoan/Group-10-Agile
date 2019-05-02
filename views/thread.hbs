@@ -5,68 +5,69 @@
 
 <body>
     {{> menu}}
-
-    <div id="thread_container">
-        <div id="op_container">
-            <h1>{{heading}}</h1>
-            <p>{{op_message}}</p>
-            <p>{{poster}}</p>
-            <p>{{date}}</p>
-            <p>{{edited_date}}</p>
-            
-            {{#if isOP}}
-            <form method="post" action="/delete_post">
-                <input type="hidden" name="id" value={{id}}>
-                <input type="submit" value="Delete"></input>
-            </form>
-
-            <button id="edit_button" onclick="show_edit_form()">Edit Post</button>
-
-            {{!-- edit form --}}
-            <form method="post" action="/edit_post" id='edit_post_form'>
-            <br>
-                <label for="edit_textarea"><b>Edit Thread</b></label><br>
-                <input type="hidden" name="id" value={{id}}>
-                <textarea name="edit_textarea" rows="10" cols="50" class="edit_textarea">{{op_message}}</textarea><br>
-                <input type="submit" value="Edit"></input>
-            </form>
-            {{/if}}
-        </div>
-        
-        <hr>
-        
-        <div id="replies_container">
-            {{#if isAuthenticated}}
-            <form method="post" action="/add_reply">
-                <input type="hidden" name="id" value={{id}}>
-                <textarea name="reply" class="post_text" rows="10" cols="50" placeholder="Reply to this post!" required></textarea><br>
-                <input type="submit" value="Reply"></input>
-            </form>
-            {{/if}}
-            
-            <ul> 
-            {{#each reply}}
-                <p>{{username}} replied on {{date}}</p>
+    <div class="flex-wrapper">
+        <div id="thread_container">
+            <div id="op_container">
+                <h1>{{heading}}</h1>
+                <p>{{op_message}}</p>
+                <p>{{poster}}</p>
+                <p>{{date}}</p>
                 <p>{{edited_date}}</p>
-                <li>
-                    {{message}}
-                    <br>
-                    {{#if ../isAuthenticated}}
-                    {{#compare_user ../curr_user username}}
-                    <button onclick="show_edit_reply_form()">Edit Reply</button>
-                    {{/compare_user}}
-                    {{/if}}
-                    
-                    <form method="post" action="/edit_reply" id="edit_reply_form">
-                        <input type="hidden" name="reply_id" value={{_id}}>
-                        <input type="hidden" name="reply_username" value={{username}}>
-                        <textarea name="edit_reply_textarea" rows="10" cols="50" class="edit_textarea">{{message}}</textarea>
+
+                {{#if isOP}}
+                <form method="post" action="/delete_post" id="thread_form">
+                    <input type="hidden" name="id" value={{id}}>
+                    <input type="submit" class="form_button" value="Delete">
+                </form>
+
+                <button id="edit_button" class="form_button" onclick="show_edit_form()">Edit</button>
+
+                {{!-- edit form --}}
+                <form method="post" action="/edit_post" id='edit_post_form'>
+                <br>
+                    <label for="edit_textarea"><b>Edit Thread</b></label><br>
+                    <input type="hidden" name="id" value={{id}}>
+                    <textarea name="edit_textarea" rows="10" cols="50" class="edit_textarea">{{op_message}}</textarea><br>
+                    <input type="submit"class="form_button" value="Save">
+                </form>
+                {{/if}}
+            </div>
+
+            <hr>
+
+            <div id="replies_container">
+                {{#if isAuthenticated}}
+                <form method="post" action="/add_reply">
+                    <input type="hidden" name="id" value={{id}}>
+                    <textarea name="reply" class="post_text" rows="10" cols="50" placeholder="Reply to this post!" required></textarea><br>
+                    <input type="submit" class="form_button" value="Reply">
+                </form>
+                {{/if}}
+
+                <ul>
+                {{#each reply}}
+                    <p>{{username}} replied on {{date}}</p>
+                    <p>{{edited_date}}</p>
+                    <li>
+                        {{message}}
                         <br>
-                        <input type="submit" value="Save reply">
-                    </form>
-                </li>
-            {{/each}}
-            </ul>
+                        {{#if ../isAuthenticated}}
+                        {{#compare_user ../curr_user username}}
+                        <button onclick="show_edit_reply_form()" class="form_button">Edit</button>
+                        {{/compare_user}}
+                        {{/if}}
+
+                        <form method="post" action="/edit_reply" id="edit_reply_form">
+                            <input type="hidden" name="reply_id" value={{_id}}>
+                            <input type="hidden" name="reply_username" value={{username}}>
+                            <textarea name="edit_reply_textarea" rows="10" cols="50" class="edit_textarea">{{message}}</textarea>
+                            <br>
+                            <input type="submit" class="form_button" value="Save">
+                        </form>
+                    </li>
+                {{/each}}
+                </ul>
+            </div>
         </div>
     </div>
 </body>
