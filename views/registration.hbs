@@ -1,3 +1,9 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,8 +11,9 @@
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'>
 
 <body>
-    {{> menu}} 
-    <form method="post" action="/saveUser" id="registration_form">
+{{> menu}}
+<form method="post" action="/saveUser" id="registration_form">
+    <div class="flex-wrapper">
         <div class="form_container">
             <h1>{{heading}}</h1>
             <hr>
@@ -19,15 +26,16 @@
 
             <label for="password"><b>Password</b></label>
             <input type="password" name="password" id="password" minlength=6 required>
-            
+
             <label for="password"><b>Confirm Password</b></label>
             <input type="password" name="r_password" id="r_password" minlength=6 required>
-            
+
             <span id='pwd_message'></span><br>
 
             <input type="submit" class="form_button" id="form_submit" disabled>
         </div>
-    </form>
+    </div>
+</form>
 </body>
 {{> footer}}
 <script src="js/script.js"></script>
