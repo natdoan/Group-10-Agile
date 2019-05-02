@@ -4,16 +4,15 @@
 {{> header}}
 
 <body>
-{{> menu}}
-<div class="flex-wrapper">
+    {{> menu}}
     <div id="message_container">
         <div class="register_add">
             <h1>{{heading}}</h1>
             {{#if isAuthenticated}}
-                <p><a class="form_button" href="http://localhost:{{port}}/new_post">Add Post</a></p>
+                <p><button><a href="/new_post">Add Post</a></button></p>
             {{else}}
                 <p>
-                    <a href="http://localhost:{{port}}/registration" class="reg_link">Register a new account to start posting!</a>
+                    <a href="/registration" class="reg_link">Register a new account to start posting!</a>
                 </p>
             {{/if}}
         </div>
@@ -21,13 +20,12 @@
 
         <ul class="message_list">
             {{#each message}}
-                <li><a href="http://localhost:{{port}}/thread/{{_id}}">{{title}}</a>
-                    <p class="poster">Posted by: {{username}} on {{date}}</p>
-                    <hr></li>
+                <li><a href="/thread/{{_id}}">{{title}}</a>
+                <p class="poster">Posted by: {{username}} on {{date}}</p>
+                <hr></li>
             {{/each}}
         </ul>
     </div>
-</div>
 </body>
 
 {{> footer}}

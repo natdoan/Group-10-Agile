@@ -1,7 +1,6 @@
 body {
     font-family: Helvetica;
-
-
+    margin: 0 0 5% 0;
 }
 
 /* ------------------------------------------- MENU BAR ------------------------------------------- */
@@ -61,43 +60,25 @@ li a:hover:not(.active) {
 .form_container {
     width: 80%;
     margin: auto;
-
     padding: 16px;
     background-color: white;
-
 }
 
 #form_submit {
     margin-top: 20px;
 }
 
-
 .form_button {
-    position: relative;
-    display: inline-block;
-    padding: 10px 15px;
-    background-image: linear-gradient(#006aa3,#008edb);
-    border-radius: 5px;
-
-
-    /* text styles */
-    text-decoration: none;
-    color: #fff;
-    font-size: 15px;
-    font-family: sans-serif;
-    font-weight: 100;
-
-    box-shadow: 1px 1px #026093;
-    text-shadow: 1px -1px black;
-
-
+    background-color: #5CB8E6;
+    border: none;
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    padding: 10px 15px
 }
 
-.form_button:hover {
-    background-image: linear-gradient(#008edb,#00a5ff);
-    color: white;
-    text-decoration: none;
-
+.form_button:disabled {
+    background-color: #f1f1f1;
 }
 
 input[type=text],
@@ -174,7 +155,7 @@ input[type=password]:focus {
 .register_add > button{
     text-align: right;
     margin-top: 0;
-
+    
 }
 
 a {
@@ -199,9 +180,8 @@ a {
     display: none;
 }
 
-#thread_form {
-    float: left;
-    padding-right: 15px;
+#edit_reply_form {
+    display: none;
 }
 
 /* ------------------------------------------- THREAD PAGE ------------------------------------------- */
@@ -233,24 +213,16 @@ a {
 }
 
 /* ------------------------------------------- Footer CSS ------------------------------------------- */
-.flex-wrapper {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-footer {
-
+.mainfoot {
+    position: fixed;
+    left: 0;
     bottom: 0;
+    width: 100%;
     background-color: #111;
     color: white;
     text-align: center;
+    margin:auto;
     font:15px;
-    height: 75px;
-
-
-
 }
 
 .footerimg{
