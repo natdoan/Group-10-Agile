@@ -10,7 +10,12 @@ var router = express.Router();
 
 /* SETUP */
 router.use(express.static('public'));
-router.use(session({ secret: 'cats' }));
+router.use(session({
+    secret: 'cats',
+    resave: false,
+    saveUninitialized: true
+    }));
+    
 router.use(bodyParser.urlencoded({ extended: false }));
 
 router.use(passport.initialize());

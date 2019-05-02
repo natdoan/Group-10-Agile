@@ -99,7 +99,7 @@ function add_reply(request, response) {
         if (err) {
             response.send('Unable to post message');
         }
-        response.redirect('/');
+        response.redirect('back');
     });
 }
 
