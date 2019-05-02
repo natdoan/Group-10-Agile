@@ -180,6 +180,10 @@ a {
     display: none;
 }
 
+#edit_reply_form {
+    display: none;
+}
+
 /* ------------------------------------------- THREAD PAGE ------------------------------------------- */
 #thread_container {
     width: 80%;

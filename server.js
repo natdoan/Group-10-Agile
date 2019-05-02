@@ -7,7 +7,7 @@ const hbs = require('hbs');
 const utils = require('./utils.js');
 const register = require('./users.js');
 const pass = require('./passport.js');
-const forum = require('./forum.js');
+const forum = require('./forum.js').router;
 const promises = require('./promises.js');
 
 const app = express();
@@ -78,8 +78,6 @@ app.get("/registration", checkAuthentication_false, (request, response) => {
 
 // Forum page
 app.get('/', async (request, response) => {
-    promises.messagePromise();
-
     var messages = await promises.messagePromise();
     
     response.render('forum.hbs', {
@@ -99,17 +97,37 @@ app.get('/new_post', checkAuthentication, (request, response) => {
 
 // Dynamically generated endpoint for threads
 app.get('/thread/:id', async (request, response) => {
-    promises.threadPromise(request.params.id);
     var thread = await promises.threadPromise(request.params.id);
 
-    promises.replyPromise(request.params.id);
     var replies = await promises.replyPromise(request.params.id);
 
+    // Checks if thread owner matches current user
     var isOP = false;
     if (request.user != undefined){
         if (request.user.username == thread.username) {
             isOP = true;
         }
+    }
+
+    // let i;
+    // let isReplyOP = false;
+    // for (i = 0; i < replies.length; i++){
+    //     // console.log(replies[i].username + " posted on " + replies[i].date);
+    //     if (request.user != undefined) {
+    //         if (request.user.username == replies[i].username) {
+    //             // console.log(replies[i].username + " posted on " + replies[i].date);
+    //             isReplyOP = replies[i].username;
+    //             // console.log(isReplyOP);
+    //         }
+    //     }
+    // }
+    
+    
+    // Passes current user to render if logged in
+    let curr_user;
+    if (request.user != undefined) {
+        curr_user = request.user.username;
+        // console.log("curr user is type " + typeof curr_user);
     }
 
     response.render('thread.hbs', {
@@ -122,6 +140,14 @@ app.get('/thread/:id', async (request, response) => {
         reply: replies,
         isOP: isOP,
         thread: thread,
-        edited_date: thread.edited_date
+        edited_date: thread.edited_date,
+        curr_user: curr_user,
+    });
+
+    hbs.registerHelper('compare_user', (current, reply, options) => {
+        if (current == reply) {
+            return options.fn(this);
+        }
+        return options.inverse(this);
     });
 });

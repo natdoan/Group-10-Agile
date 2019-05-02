@@ -44,10 +44,26 @@
             </form>
             {{/if}}
             
-            <ul>
+            <ul> 
             {{#each reply}}
                 <p>{{username}} replied on {{date}}</p>
-                <li>{{message}}
+                <p>{{edited_date}}</p>
+                <li>
+                    {{message}}
+                    <br>
+                    {{#if ../isAuthenticated}}
+                    {{#compare_user ../curr_user username}}
+                    <button onclick="show_edit_reply_form()">Edit Reply</button>
+                    {{/compare_user}}
+                    {{/if}}
+                    
+                    <form method="post" action="/edit_reply" id="edit_reply_form">
+                        <input type="hidden" name="reply_id" value={{_id}}>
+                        <input type="hidden" name="reply_username" value={{username}}>
+                        <textarea name="edit_reply_textarea" rows="10" cols="50" class="edit_textarea">{{message}}</textarea>
+                        <br>
+                        <input type="submit" value="Save reply">
+                    </form>
                 </li>
             {{/each}}
             </ul>
