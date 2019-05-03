@@ -5,14 +5,14 @@
 
 <body>
     {{> menu}}
-    <div class="flex-wrapper">
+    <div class="main-container"><br>
         <div id="thread_container">
             <div id="op_container">
                 <h1>{{heading}}</h1>
                 <p>{{op_message}}</p>
-                <p>{{poster}}</p>
-                <p>{{date}}</p>
-                <p>{{edited_date}}</p>
+                <div class="edittext">By: {{poster}}</div>
+                <div class="edittext">Posted: {{date}}, {{edited_date}}</div>
+                <br>
 
                 {{#if isOP}}
                 <form method="post" action="/delete_post" id="thread_form">
@@ -33,7 +33,7 @@
                 {{/if}}
             </div>
 
-            <hr>
+            <br>
 
             <div id="replies_container">
                 {{#if isAuthenticated}}
@@ -41,25 +41,25 @@
                     <input type="hidden" name="id" value={{id}}>
                     <textarea name="reply" class="post_text" rows="10" cols="50" placeholder="Reply to this post!" required></textarea><br>
                     <input type="submit" class="form_button" value="Reply">
-                </form>
+                </form><br>
                 {{/if}}
 
                 <ul>
                 {{#each reply}}
-                    <p>{{username}} replied on {{date}}</p>
-                    <p>{{edited_date}}</p>
+                    <p class="edittext">{{username}} replied on {{date}}</p>
+                    <p class="edittext">{{edited_date}}</p>
                     <li>
                         {{message}}
-                        <br>
+
                         {{#if ../isAuthenticated}}
                         {{#compare_user ../curr_user username}}
-                        <button onclick="show_edit_reply_form()" class="form_button">Edit</button>
+                        <button onclick="show_edit_reply_form()" class="form_button reply_button">Edit</button>
                         {{/compare_user}}
                         {{/if}}
 
                         <form method="post" action="/edit_reply" id="edit_reply_form">
                             <input type="hidden" name="reply_id" value={{_id}}>
-                            <input type="hidden" name="reply_username" value={{username}}>
+                            <input type="hidden" name="reply_username" value={{username}}><br>
                             <textarea name="edit_reply_textarea" rows="10" cols="50" class="edit_textarea">{{message}}</textarea>
                             <br>
                             <input type="submit" class="form_button" value="Save">
@@ -69,8 +69,10 @@
                 </ul>
             </div>
         </div>
+        {{> footer}}
     </div>
+
 </body>
-{{> footer}}
+
 <script src="/js/script.js"></script>
 </html>

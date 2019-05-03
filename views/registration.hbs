@@ -12,8 +12,9 @@
 
 <body>
 {{> menu}}
-<form method="post" action="/saveUser" id="registration_form">
-    <div class="flex-wrapper">
+<div class="main-container"><br>
+    <form method="post" action="/saveUser" id="registration_form">
+
         <div class="form_container">
             <h1>{{heading}}</h1>
             <hr>
@@ -34,10 +35,12 @@
 
             <input type="submit" class="form_button" id="form_submit" disabled>
         </div>
-    </div>
-</form>
-</body>
+
+    </form>
 {{> footer}}
+</div>
+</body>
+
 <script src="js/script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 </html>
