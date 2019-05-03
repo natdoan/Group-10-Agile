@@ -52,7 +52,7 @@ function edit_post(request, response) {
     }, {
         $set: {
             message: edited_message,
-            edited_date: "Last edit: " + get_date()
+            edited_date: "| Last edit: " + get_date()
         }
     }, (err, result) => {
         if (err) {
@@ -120,7 +120,7 @@ function edit_reply(request, response) {
     }, {
         $set: {
             message: edited_reply,
-            edited_date: "Last edit: " + get_date()
+            edited_date: "| Last edit: " + get_date()
         }
     }, (err, result) => {
         if (err) {
@@ -132,5 +132,7 @@ function edit_reply(request, response) {
 
 module.exports = {
   get_date: get_date,
-  router: router
+  router: router,
+  add_post: add_post,
+  edit_reply: edit_reply
 };
