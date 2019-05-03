@@ -6,8 +6,9 @@
 <body style="clear: both;">
 {{> menu}}
 
-<form method="post" action="/login">
-    <div class="flex-wrapper">
+<div class="main-container"><br>
+    <form method="post" action="/login">
+
         <div class="form_container">
             <h1>{{heading}}</h1>
             <hr>
@@ -20,9 +21,10 @@
 
             <input type="submit" class="form_button" value="Submit" id="login_button"/>
         </div>
-    </div>
-</form>
+
+    </form>
 {{> footer}}
+</div>
 </body>
 <script src="js/script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
