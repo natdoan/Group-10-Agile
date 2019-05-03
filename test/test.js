@@ -86,25 +86,30 @@ describe('Add post', function() {
     })
 })
 
-describe('Edit post', function() {
-    it('Should edit a post in the database', function(done) {
+describe('Edit reply', function() {
+    it('Should successfully edit post (with matching random number)', function(done) {
         var agent = chai.request.agent('http://localhost:8080')
-        var thread = chai.request.agent('http://localhost:8080/thread/5ccc5d18e7c87927c4b668ec')
+        var random_number = Math.random()
         agent
             .post('/login')
             .type('form')
             .send({username: 'tester', password: 'test'})
             .then(function(res) {
-                return thread
-                    .post('/edit_post')
+                return agent
+                    .post('/edit_reply')
                     .type('form')
-                    .send({reply_id: '5ccc5d18e7c87927c4b668ec', reply_username: 'tester', edit_reply_textarea: "message"})
+                    .send({reply_id: '5ccc5d2be7c87927c4b668ed', reply_username: 'tester', edit_reply_textarea: "edit successful! Test number: " + random_number})
                     .then(function(res) {
-                        var str = res.text;
-                        var page_text = /edit successful/i;
-                        var result = page_text.test(str);
-                        assert.equal(result, true);
-                        done()
+                        return agent
+                            .get('/thread/5ccc5d18e7c87927c4b668ec')
+                            .then(function(res) {
+                                console.log(res)
+                                var str = res.text;
+                                var page_text = /edit successful/i;
+                                var result = page_text.test(str);
+                                assert.equal(result, true);
+                                done()
+                            })
                     });
             });
         agent.close();
