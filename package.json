@@ -1,7 +1,7 @@
 {
-  "name": "2019nodejs_a3",
+  "name": "Group10Agile",
   "version": "1.0.0",
-  "description": "ACIT2520_Assignment3",
+  "description": "Group 10 Agile Development project",
   "main": "index.js",
   "scripts": {
     "test": "mocha",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cat-box/2019NodeJS_A3.git"
+    "url": "git+https://github.com/memoryofzero/Group-10-Agile.git"
   },
-  "author": "Cathy Chan, Wilfred Ta, Kevin Yoo",
+  "author": "Brody Voth, Natalie Doan, Gautam Masand, Justin Mudaliar, Alex Peng, Wilfred Ta",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/cat-box/2019NodeJS_A3/issues"
+    "url": "https://github.com/memoryofzero/Group-10-Agile.git/issues"
   },
-  "homepage": "https://github.com/cat-box/2019NodeJS_A3#readme",
+  "homepage": "https://github.com/memoryofzero/Group-10-Agile.git#readme",
   "dependencies": {
     "bcrypt": "^3.0.6",
     "body-parser": "^1.18.3",
