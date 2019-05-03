@@ -89,7 +89,7 @@ describe('Add post', function() {
 describe('Edit reply', function() {
     it('Should successfully edit post (with matching random number)', function(done) {
         var agent = chai.request.agent('http://localhost:8080')
-        var random_number = Math.random()
+        var random_number = Math.random().toString()
         agent
             .post('/login')
             .type('form')
@@ -103,10 +103,9 @@ describe('Edit reply', function() {
                         return agent
                             .get('/thread/5ccc5d18e7c87927c4b668ec')
                             .then(function(res) {
-                                console.log(res)
                                 var str = res.text;
-                                var page_text = /edit successful/i;
-                                var result = page_text.test(str);
+                                var patt = new RegExp(random_number)
+                                var result = patt.test(str);
                                 assert.equal(result, true);
                                 done()
                             })
