@@ -225,6 +225,8 @@ a {
     padding-right: 15px;
 }
 
+
+
 /* ------------------------------------------- THREAD PAGE ------------------------------------------- */
 #thread_container {
     width: 80%;
@@ -271,6 +273,11 @@ ul {
 .reply_button {
     float: right;
 }
+
+.edittext {
+    font-style: italic;
+}
+
 
 /* ------------------------------------------- Footer CSS ------------------------------------------- */
 .flex-wrapper {
