@@ -132,5 +132,7 @@ function edit_reply(request, response) {
 
 module.exports = {
   get_date: get_date,
-  router: router
+  router: router,
+  add_post: add_post,
+  edit_reply: edit_reply
 };

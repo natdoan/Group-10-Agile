@@ -151,3 +151,5 @@ app.get('/thread/:id', async (request, response) => {
         return options.inverse(this);
     });
 });
+
+module.exports = app;
