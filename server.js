@@ -82,7 +82,7 @@ app.get('/', async (request, response) => {
     
     response.render('forum.hbs', {
         title: 'Home',
-        heading: 'Message Board',
+        heading: 'Forum',
         message: messages
     });
 });

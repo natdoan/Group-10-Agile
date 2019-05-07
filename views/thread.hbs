@@ -48,14 +48,15 @@
                 {{#each reply}}
                     <p class="edittext">{{username}} replied on {{date}} {{edited_date}}</p>
                     <li>
-                        {{message}}
+                        <div class="replyspace">{{message}}
 
                         {{#if ../isAuthenticated}}
                         {{#compare_user ../curr_user username}}
                         <button onclick="show_edit_reply_form()" class="form_button reply_button">Edit</button>
                         {{/compare_user}}
                         {{/if}}
-
+                        </div>
+                        
                         <form method="post" action="/edit_reply" id="edit_reply_form">
                             <input type="hidden" name="reply_id" value={{_id}}>
                             <input type="hidden" name="reply_username" value={{username}}><br>

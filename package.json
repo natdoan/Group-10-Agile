@@ -35,5 +35,8 @@
     "supertest": "^4.0.2",
     "sweetalert": "^2.1.2",
     "sweetalert2": "^8.8.1"
+  },
+  "devDependencies": {
+    "mocha-simple-html-reporter": "^1.1.0"
   }
 }

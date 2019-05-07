@@ -282,6 +282,9 @@ ul {
     padding-top: 14px
 }
 
+.replyspace {
+    margin-top: -15px;
+}
 /* ------------------------------------------- Footer CSS ------------------------------------------- */
 .flex-wrapper {
     display: flex;

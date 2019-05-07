@@ -22,6 +22,7 @@ function add_post(request, response) {
     var title = request.body.title;
     var message = request.body.message;
     var username = request.user.username;
+    var category = request.body.category;
 
     var db = utils.getDb();
 
@@ -31,7 +32,8 @@ function add_post(request, response) {
         username: username,
         type: 'thread',
         date: get_date(),
-        thread_id: null
+        thread_id: null,
+        category: category
     }, (err, result) => {
         if (err) {
             response.send('Unable to post message');
