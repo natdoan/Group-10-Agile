@@ -6,7 +6,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 
-var router = express.Router();
+const router = express.Router();
 
 /* SETUP */
 router.use(express.static('public'));
@@ -31,7 +31,7 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-    var db = utils.getDb();
+    let db = utils.getDb();
 
     var ObjectId = utils.getObjectId();
 
@@ -56,7 +56,7 @@ router.post('/login',
 /* LOCAL AUTHENTICATION */
 passport.use(new LocalStrategy((username, password, done) => {
 
-    var db = utils.getDb();
+    let db = utils.getDb();
 
     db.collection('users').findOne({
         username: username,

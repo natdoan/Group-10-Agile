@@ -3,11 +3,10 @@ const utils = require('./utils');
 const pass = require('./passport.js');
 const {DateTime} = require('luxon');
 
-var router = express.Router();
+const router = express.Router();
 
 router.use(pass);
 
-// Add post to the db
 router.post('/add_post', add_post);
 router.post('/add_reply', add_reply);
 router.post('/delete_post', delete_post);
@@ -22,8 +21,9 @@ function add_post(request, response) {
     var title = request.body.title;
     var message = request.body.message;
     var username = request.user.username;
+    var category = request.body.category;
 
-    var db = utils.getDb();
+    let db = utils.getDb();
 
     db.collection('messages').insertOne({
         title: title,
@@ -31,7 +31,8 @@ function add_post(request, response) {
         username: username,
         type: 'thread',
         date: get_date(),
-        thread_id: null
+        thread_id: null,
+        category: category
     }, (err, result) => {
         if (err) {
             response.send('Unable to post message');
@@ -63,11 +64,11 @@ function edit_post(request, response) {
 }
 
 function delete_post(request, response) {
-    var thread_id = request.body.id;
-    var username = request.user.username;
+    let thread_id = request.body.id;
+    let username = request.user.username;
 
-    var db = utils.getDb();
-    var ObjectId = utils.getObjectId();
+    let db = utils.getDb();
+    let ObjectId = utils.getObjectId();
 
     db.collection('messages').deleteMany({
         $or:[
@@ -83,11 +84,11 @@ function delete_post(request, response) {
 }
 
 function add_reply(request, response) {
-    var reply = request.body.reply;
-    var username = request.user.username;
-    var thread_id = request.body.id;
+    let reply = request.body.reply;
+    let username = request.user.username;
+    let thread_id = request.body.id;
 
-    var db = utils.getDb();
+    let db = utils.getDb();
 
     db.collection('messages').insertOne({
         message: reply,
@@ -134,5 +135,5 @@ module.exports = {
   get_date: get_date,
   router: router,
   add_post: add_post,
-  edit_reply: edit_reply
+  edit_reply: edit_reply,
 };

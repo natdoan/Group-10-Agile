@@ -22,7 +22,7 @@ function saveUser(request, response) {
             {username: username}
         ]
     };
-
+//comment
     db.collection('users').find(query).toArray((err, result) => {
         if (result.length > 0) {
             setTimeout(function() {

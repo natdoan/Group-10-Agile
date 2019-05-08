@@ -32,11 +32,11 @@ describe('GET /', function () {
 });
 
 describe('Login', function () {
-    it('Should redirect to main page', function (done) {
+    it('Should see homepage text "Message Board" (successful redirect)', function (done) {
         chai.request('http://localhost:8080')
             .post('/login')
             .type('form')
-            .send({username: 'man', password: 'manly'})
+            .send({username: 'tester', password: 'test'})
             .then(function (res) {
                 var str = res.text;
                 var page_text = /Message Board/i;
@@ -46,6 +46,20 @@ describe('Login', function () {
             });
     })
 })
+
+describe('Login', function () {
+    it('Should redirect to main page', function (done) {
+        chai.request('http://localhost:8080')
+            .post('/login')
+            .type('form')
+            .send({username: 'tester', password: 'test'})
+            .then(function (res) {
+                expect(res).to.redirectTo('http://localhost:8080/')
+                done()
+            });
+    })
+})
+
 
 describe('Invalid login', function () {
     it('Should reload page', function (done) {

@@ -2,9 +2,9 @@ const utils = require('./utils.js');
 
 // Populates message board page with the titles of each 
 // message in the database
-var messagePromise = () => {
+const messagePromise = () => {
     return new Promise((resolve, reject) => {
-        var db = utils.getDb();
+        let db = utils.getDb();
 
         db.collection('messages').find({
             type: 'thread'
@@ -20,12 +20,12 @@ var messagePromise = () => {
 };
 
 // Retrieves thread details
-var threadPromise = (param_id) => {
+const threadPromise = (param_id) => {
     return new Promise((resolve, reject) => {
-        var db = utils.getDb();
-        var ObjectId = utils.getObjectId();
+        let db = utils.getDb();
+        let ObjectId = utils.getObjectId();
 
-        var query = {
+        let query = {
             _id: ObjectId(param_id)
         };
 
@@ -39,9 +39,9 @@ var threadPromise = (param_id) => {
 };
 
 // Retrieves all replies of a thread
-var replyPromise = (param_id) => {
+const replyPromise = (param_id) => {
     return new Promise ((resolve, reject) => {
-        var db = utils.getDb();
+        let db = utils.getDb();
 
         db.collection('messages').find({
             thread_id: param_id
@@ -54,8 +54,30 @@ var replyPromise = (param_id) => {
     });
 };
 
+const category_promise = (param_category) => {
+    return new Promise ((resolve, reject) => {
+        let db = utils.getDb();
+
+        db.collection('messages').find({
+            $and: [
+                {type: "thread"},
+                {category: param_category}
+            ]
+        }, {
+            _id: 0
+        }).toArray((err, result) => {
+            if (err) {
+                reject(err);
+            }
+            resolve(result.reverse());
+        });
+    });
+};
+
+
 module.exports = {
     messagePromise: messagePromise,
     threadPromise: threadPromise,
-    replyPromise: replyPromise
+    replyPromise: replyPromise,
+    category_promise: category_promise
 };

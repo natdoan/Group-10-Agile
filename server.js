@@ -82,7 +82,7 @@ app.get('/', async (request, response) => {
     
     response.render('forum.hbs', {
         title: 'Home',
-        heading: 'Message Board',
+        heading: 'Forum',
         message: messages
     });
 });
@@ -151,5 +151,19 @@ app.get('/thread/:id', async (request, response) => {
         return options.inverse(this);
     });
 });
+
+app.get("/forum/:category", async (request, response) => {
+    // console.log(request.params.category);
+    let threads = await promises.category_promise(request.params.category);
+    
+    // console.log(threads);
+    
+    response.render("category.hbs", {
+        title: `Viewing threads in: ${request.params.category}`,
+        heading: request.params.category,
+        thread: threads
+    });
+});
+
 
 module.exports = app;
