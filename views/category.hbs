@@ -34,6 +34,7 @@
             {{#each thread}}
                 <li>
                     <a href="/thread/{{_id}}">{{title}}</a>
+                    <p style="margin-bottom: -10px; font-size: 12px">Replies: {{replies}}</p>
                     <p class="poster">Posted by: {{username}} on {{date}}</p>
                 <hr></li>
             {{/each}}
