@@ -159,7 +159,7 @@ app.get("/forum/:category", async (request, response) => {
     // console.log(threads);
     
     response.render("category.hbs", {
-        title: `Viewing threads in: ${request.params.category}`,
+        title: `${request.params.category} Threads`,
         heading: request.params.category,
         thread: threads
     });
