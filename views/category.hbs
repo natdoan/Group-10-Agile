@@ -30,10 +30,11 @@
         <hr>
 
         <ul class="message_list">
-            {{#each message}}
-                <li><a href="/thread/{{_id}}">[{{category}}] {{title}}</a>
+            {{#each thread}}
+                <li>
+                    <a href="/thread/{{_id}}">{{title}}</a>
                     <p class="poster">Posted by: {{username}} on {{date}}</p>
-                    <hr></li>
+                </li>
             {{/each}}
         </ul>
     </div>

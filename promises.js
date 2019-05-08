@@ -54,8 +54,30 @@ const replyPromise = (param_id) => {
     });
 };
 
+const category_promise = (param_category) => {
+    return new Promise ((resolve, reject) => {
+        let db = utils.getDb();
+
+        db.collection('messages').find({
+            $and: [
+                {type: "thread"},
+                {category: param_category}
+            ]
+        }, {
+            _id: 0
+        }).toArray((err, result) => {
+            if (err) {
+                reject(err);
+            }
+            resolve(result.reverse());
+        });
+    });
+};
+
+
 module.exports = {
     messagePromise: messagePromise,
     threadPromise: threadPromise,
-    replyPromise: replyPromise
+    replyPromise: replyPromise,
+    category_promise: category_promise
 };

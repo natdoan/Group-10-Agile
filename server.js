@@ -152,4 +152,18 @@ app.get('/thread/:id', async (request, response) => {
     });
 });
 
+app.get("/forum/:category", async (request, response) => {
+    // console.log(request.params.category);
+    let threads = await promises.category_promise(request.params.category);
+    
+    // console.log(threads);
+    
+    response.render("category.hbs", {
+        title: `Viewing threads in: ${request.params.category}`,
+        heading: request.params.category,
+        thread: threads
+    });
+});
+
+
 module.exports = app;

@@ -135,5 +135,5 @@ module.exports = {
   get_date: get_date,
   router: router,
   add_post: add_post,
-  edit_reply: edit_reply
+  edit_reply: edit_reply,
 };
