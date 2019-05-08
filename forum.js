@@ -32,7 +32,8 @@ function add_post(request, response) {
         type: 'thread',
         date: get_date(),
         thread_id: null,
-        category: category
+        category: category,
+        replies: 0
     }, (err, result) => {
         if (err) {
             response.send('Unable to post message');
@@ -88,6 +89,7 @@ function add_reply(request, response) {
     let username = request.user.username;
     let thread_id = request.body.id;
 
+    var ObjectId = utils.getObjectId();
     let db = utils.getDb();
 
     db.collection('messages').insertOne({
@@ -100,8 +102,17 @@ function add_reply(request, response) {
         if (err) {
             response.send('Unable to post message');
         }
-        response.redirect('back');
+        db.collection('messages').findOneAndUpdate({
+            _id: new ObjectId(thread_id)
+        }, {
+            $inc: {
+                replies: 1
+            }
+        }, (err, result) => {
+            response.redirect('back');
+        });
     });
+    
 }
 
 function edit_reply(request, response) {

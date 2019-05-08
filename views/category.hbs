@@ -13,12 +13,13 @@
                 <p><a class="form_button" href="/new_post">Add Post</a></p>
             {{else}}
                 <p>
-                    <a href="/registration" class="reg_link">Register a new account to start posting!</a>
+                    <a href="/registration" class="reg_link">Create an account to start posting!</a>
                 </p>
             {{/if}}
                 <p>
                     <select name="category" onChange="window.location.href=this.value">
-                        <option selected hidden>View category</option>    
+                        <option selected hidden>{{heading}}</option>
+                        <option value="/">All Posts</option>    
                         <option value="/forum/School">School</option>
                         <option value="/forum/Entertainment">Entertainment</option>
                         <option value="/forum/Help">Help</option>
@@ -33,8 +34,9 @@
             {{#each thread}}
                 <li>
                     <a href="/thread/{{_id}}">{{title}}</a>
+                    <p style="margin-bottom: -10px; font-size: 12px">Replies: {{replies}}</p>
                     <p class="poster">Posted by: {{username}} on {{date}}</p>
-                </li>
+                <hr></li>
             {{/each}}
         </ul>
     </div>
