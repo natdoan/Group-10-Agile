@@ -1,4 +1,6 @@
 const express = require('express');
+const bcrypt = require('bcrypt');
+
 var utils = require('./utils');
 
 var router = express.Router();
@@ -30,7 +32,8 @@ function saveUser(request, response) {
             db.collection('users').insertOne({
                 email: email,
                 username: username,
-                password: password
+                password: bcrypt.hashSync(password, 10),
+                replyOP: null
             }, (err, result) => {
                 if (err) {
                     response.send('Unable to register user');

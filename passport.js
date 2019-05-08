@@ -4,12 +4,18 @@ const utils = require('./utils');
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const bcrypt = require('bcrypt');
 
 const router = express.Router();
 
 /* SETUP */
 router.use(express.static('public'));
-router.use(session({ secret: 'cats' }));
+router.use(session({
+    secret: 'cats',
+    resave: false,
+    saveUninitialized: true
+    }));
+    
 router.use(bodyParser.urlencoded({ extended: false }));
 
 router.use(passport.initialize());
@@ -27,7 +33,7 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((id, done) => {
     let db = utils.getDb();
 
-    let ObjectId = utils.getObjectId();
+    var ObjectId = utils.getObjectId();
 
     db.collection('users').findOne({
         _id: new ObjectId(id)
@@ -54,12 +60,14 @@ passport.use(new LocalStrategy((username, password, done) => {
 
     db.collection('users').findOne({
         username: username,
-        password: password
     }, (err, user) => {
-        if (err) {
+        if (err || user == undefined) {
+            return done(null, false);
+        } else if (bcrypt.compareSync(password, user.password)) {
+            return done(null, user);
+        } else {
             return done(null, false);
         }
-        return done(null, user);
     });
 }
 ));

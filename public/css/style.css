@@ -1,36 +1,15 @@
 body {
-    font-family: Helvetica;
-    margin: 0 0 5% 0;
+    font-family: "Arial", sans-serif;
+
+
+}
+
+input {
+    border-radius: 5px;
 }
 
 /* ------------------------------------------- MENU BAR ------------------------------------------- */
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-}
 
-li {
-    float: left;
-}
-
-li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-li a:hover:not(.active) {
-    background-color: #4D99BF;
-}
-
-.active {
-    background-color: #5CB8E6;
-}
 
 .home_link {
     padding: 0;
@@ -39,14 +18,51 @@ li a:hover:not(.active) {
 
 .home_icon {
     padding: 5px;
-    max-height: 32px;
+    max-height: 52px;
+    width: auto;
+
+}
+
+
+.navbar {
+    background-color: black;
+    max-height: 53px;
+
+}
+
+.navbar-brand, .nav-link {
+    color: white;
+    font-family: "Arial", sans-serif ;font-size: 17px;
+    font-weight: initial;
+
+    margin-top: 4px;
+
+
+
+}
+
+.nav-item {
+
+    height: 53px;
+    background:#008edb;
+    border: solid 1px #006aa3;
+    padding-left: 7px;
+    padding-right: 7px;
+    float: right;
+
+}
+
+.nav-item:hover, .nav-link:hover {
+    background: #00a5ff;
+    color: white;
+    text-decoration: none;
+
+
 }
 
 /* ------------------------------------------- LOGIN PAGE ------------------------------------------- */
 
-.login {
-    float: right;
-}
+
 
 .username {
     display: block;
@@ -60,25 +76,43 @@ li a:hover:not(.active) {
 .form_container {
     width: 80%;
     margin: auto;
+
     padding: 16px;
     background-color: white;
+
 }
 
 #form_submit {
     margin-top: 20px;
 }
 
+
 .form_button {
-    background-color: #5CB8E6;
+    position: relative;
+    display: inline-block;
+    padding: 5px 10px;
+    background: #008edb;
+    border-radius: 5px;
     border: none;
-    color: white;
-    text-align: center;
-    font-size: 16px;
-    padding: 10px 15px
+
+
+    /* text styles */
+    text-decoration: none;
+    color: #fff;
+    font-size: 15px;
+    font-family: "Arial", sans-serif;
+    font-weight: 100;
+
+
+
+
 }
 
-.form_button:disabled {
-    background-color: #f1f1f1;
+.form_button:hover {
+    background: #00a5ff;
+    color: white;
+    text-decoration: none;
+
 }
 
 input[type=text],
@@ -96,7 +130,7 @@ input[type=password]:focus {
     box-shadow: none;
 }
 
-/* TODO: FIX COLOURSSSS */
+
 .diff_pw {
     border: 1px solid red;
     box-shadow: 0 0 0 1px red;
@@ -119,6 +153,7 @@ input[type=password]:focus {
     padding: 15px;
 }
 
+
 /* ------------------------------------------- FORUM PAGE ------------------------------------------- */
 #message_container {
     width: 80%;
@@ -132,11 +167,12 @@ input[type=password]:focus {
 
 .message_list {
     background-color: white;
+    list-style: none;
 }
 
 .message_list > li {
     float: none;
-    padding: 15px 15px 0 15px;
+    /* padding: 15px 15px 0 15px; */
     margin: 10px;
 }
 
@@ -155,7 +191,7 @@ input[type=password]:focus {
 .register_add > button{
     text-align: right;
     margin-top: 0;
-    
+
 }
 
 a {
@@ -179,6 +215,17 @@ a {
 #edit_post_form {
     display: none;
 }
+
+#edit_reply_form {
+    display: none;
+}
+
+#thread_form {
+    float: left;
+    padding-right: 15px;
+}
+
+
 
 /* ------------------------------------------- THREAD PAGE ------------------------------------------- */
 #thread_container {
@@ -208,19 +255,75 @@ a {
     padding: 15px;
 }
 
+ul {
+    list-style: none;
+}
+
+.post_text, .edit_textarea {
+    height: 100px;
+    border-radius: 5px;
+}
+
+#op_container {
+    border: solid lightgray 1px;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.reply_button {
+    float: right;
+}
+
+.edittext {
+    font-style: italic;
+}
+
+.opmessage {
+    padding-top: 14px
+}
+
+.replyspace {
+    margin-top: -15px;
+}
 /* ------------------------------------------- Footer CSS ------------------------------------------- */
-.mainfoot {
-    position: fixed;
-    left: 0;
+.flex-wrapper {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+
+
+.footerimg{
+    width: 44px;
+}
+
+* {
+    box-sizing: border-box;
+}
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+html,
+body {
+    height: 100%;
+    position: relative;
+}
+.main-container {
+    min-height: 100vh; /* will cover the 100% of viewport */
+    overflow: hidden;
+    display: block;
+    position: relative;
+    padding-bottom: 100px; /* height of your footer */
+}
+footer {
+    position: absolute;
     bottom: 0;
     width: 100%;
     background-color: #111;
     color: white;
     text-align: center;
-    margin:auto;
     font:15px;
-}
-
-.footerimg{
-    width: 44px;
 }

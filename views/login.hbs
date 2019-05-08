@@ -3,10 +3,12 @@
 
 {{> header}}
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'>
-<body>
-    {{> menu}}
-    
+<body style="clear: both;">
+{{> menu}}
+
+<div class="main-container"><br>
     <form method="post" action="/login">
+
         <div class="form_container">
             <h1>{{heading}}</h1>
             <hr>
@@ -19,9 +21,12 @@
 
             <input type="submit" class="form_button" value="Submit" id="login_button"/>
         </div>
+
     </form>
+{{> footer}}
+</div>
 </body>
 <script src="js/script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-{{> footer}}
+
 </html>

@@ -51,3 +51,9 @@ function show_edit_form() {
 
     form.style.display="block";
 }
+
+function show_edit_reply_form() {
+    var edit_form = document.getElementById("edit_reply_form");
+
+    edit_form.style.display="block";
+}
