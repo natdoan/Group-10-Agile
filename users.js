@@ -10,8 +10,8 @@ router.post('/saveUser', saveUser);
 module.exports = router;
 
 function saveUser(request, response) {
-    let email = request.body.email.toLowerCase();
-    let username = request.body.username.toLowerCase();
+    let email = request.body.email;
+    let username = request.body.username;
     let password = request.body.password;
 
     let db = utils.getDb();
@@ -19,7 +19,11 @@ function saveUser(request, response) {
     let query = {
         $or: [
             {email: email},
-            {username: username}
+            {email: email.toLowerCase()},
+            {email: email.toUpperCase()},
+            {username: username},
+            {username: username.toLowerCase()},
+            {username: username.toUpperCase()}
         ]
     };
 

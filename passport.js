@@ -54,13 +54,17 @@ router.post('/login',
 );
 
 /* LOCAL AUTHENTICATION */
-passport.use(new LocalStrategy((username, password, done) => {
+passport.use(new LocalStrategy((login, password, done) => {
     let db = utils.getDb();
 
     db.collection('users').findOne({
         $or: [
-            {username: username},
-            {email: username}
+            {username: login},
+            {username: login.toLowerCase()},
+            {username: login.toUpperCase()},
+            {email: login},
+            {email: login.toLowerCase()},
+            {email: login.toUpperCase()}
         ]
     }, (err, user) => {
         if (err || user == undefined) {
