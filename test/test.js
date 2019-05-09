@@ -129,3 +129,41 @@ describe('Edit reply', function() {
         agent.close();
     })
 })
+
+describe('Post Category', function() {
+    it('should add post with category', function(done) {
+        var agent = chai.request.agent('http://localhost:8080')
+        
+        agent
+            .post('/login')
+            .type('form')
+            .send({username: 'tester', password: 'test'})
+            .then(function(res) {
+                return agent
+                    .post('/add_post')
+                    .type('form')
+                    .send({title: 'category test', message: 'test message', category: 'Meta'})
+                    .then(function(res) {
+                        var str = res.text;
+                        var page_text = /Meta/i;
+                        var result = page_text.test(str);
+
+                        assert.equal(result, true);
+                        done();
+                    });
+            });
+        agent.close();
+    });
+});
+
+describe('get category pages', function () {
+    it('should return forum category page', function (done) {
+        chai.request('http://localhost:8080')
+            .get('/forum/Meta')
+            .end(function(err, res) {
+                expect('Content-Type', "text/html; charset=utf-8");
+                expect(res).to.have.status(200);
+                done()
+            })
+    });
+});
