@@ -31,21 +31,22 @@ describe('GET /', function () {
     });
 });
 
-describe('Login', function () {
-    it('Should see homepage text "Message Board" (successful redirect)', function (done) {
-        chai.request('http://localhost:8080')
-            .post('/login')
-            .type('form')
-            .send({username: 'tester', password: 'test'})
-            .then(function (res) {
-                var str = res.text;
-                var page_text = /Message Board/i;
-                var result = page_text.test(str);
-                assert.equal(result, true);
-                done()
-            });
-    })
-})
+// OLD LOGIN TEST
+// describe('Login', function () {
+//     it('Should see homepage text "Message Board" (successful redirect)', function (done) {
+//         chai.request('http://localhost:8080')
+//             .post('/login')
+//             .type('form')
+//             .send({username: 'tester', password: 'test'})
+//             .then(function (res) {
+//                 var str = res.text;
+//                 var page_text = /Message Board/i;
+//                 var result = page_text.test(str);
+//                 assert.equal(result, true);
+//                 done()
+//             });
+//     })
+// })
 
 describe('Login', function () {
     it('Should redirect to main page', function (done) {
@@ -87,7 +88,7 @@ describe('Add post', function() {
                 return agent
                     .post('/add_post')
                     .type('form')
-                    .send({title: 'test title new', message: 'test message'})
+                    .send({title: 'test title new', message: 'test message', category: 'Test'})
                     .then(function(res) {
                         var str = res.text;
                         var page_text = /test title new/i;
