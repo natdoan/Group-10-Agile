@@ -1,22 +1,22 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 
-var utils = require('./utils');
+const utils = require('./utils');
 
-var router = express.Router();
+const router = express.Router();
 
 router.post('/saveUser', saveUser);
 
 module.exports = router;
 
 function saveUser(request, response) {
-    var email = request.body.email;
-    var username = request.body.username;
-    var password = request.body.password;
+    let email = request.body.email.toLowerCase();
+    let username = request.body.username.toLowerCase();
+    let password = request.body.password;
 
-    var db = utils.getDb();
+    let db = utils.getDb();
 
-    var query = {
+    let query = {
         $or: [
             {email: email},
             {username: username}
@@ -24,22 +24,19 @@ function saveUser(request, response) {
     };
 
     db.collection('users').find(query).toArray((err, result) => {
-        if (result.length > 0) {
-            setTimeout(function() {
-                return response.redirect('/');
-            }, 2500);
-        } else if (result.length == 0) {
+        if (result.length == 0) {
             db.collection('users').insertOne({
                 email: email,
                 username: username,
                 password: bcrypt.hashSync(password, 10),
-                replyOP: null
             }, (err, result) => {
                 if (err) {
                     response.send('Unable to register user');
                 }
                 response.redirect('/login');
             });
+        } else {
+            response.send("An account with that username or email already exists.");
         }
     });
 }

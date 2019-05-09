@@ -16,7 +16,15 @@
             <label for="message"><b>Message</b></label><br>
             <textarea name="message" class="post_text" rows="10" cols="50" placeholder="What's on your mind?" required></textarea>
             <br>
-
+            <label for="category"><b>Category</b></label><br>
+            <select name="category">
+            <option selected hidden style='display: none' value='Uncategorized'>Select a Category</option>    
+            <option value="School">School</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Help">Help</option>
+            <option value="Meta">Meta</option>
+            <option value="Other">Other</option>
+            </select><br>
             <br><input type="submit" value="Submit" class="form_button" id="submit_post">
         </div>
     </form>

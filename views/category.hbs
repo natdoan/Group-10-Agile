@@ -18,25 +18,25 @@
             {{/if}}
                 <p>
                     <select name="category" onChange="window.location.href=this.value">
-                        <option selected>All Posts</option>    
-                        <option value="/forum/school">School</option>
-                        <option value="/forum/entertainment">Entertainment</option>
-                        <option value="/forum/help">Help</option>
-                        <option value="/forum/meta">Meta</option>
-                        <option value="/forum/other">Other</option>
+                        <option selected hidden>{{heading}}</option>
+                        <option value="/">All Posts</option>    
+                        <option value="/forum/School">School</option>
+                        <option value="/forum/Entertainment">Entertainment</option>
+                        <option value="/forum/Help">Help</option>
+                        <option value="/forum/Meta">Meta</option>
+                        <option value="/forum/Other">Other</option>
                     </select>
                 </p>
         </div>
         <hr>
 
         <ul class="message_list">
-            {{#each message}}
-                <li><a href="/thread/{{_id}}">{{title}}</a>
-                    <p style="margin-bottom: 15px; font-size: 12px"><a href="/forum/{{category}}"><i>[{{category}}]</i></a></p>     
+            {{#each thread}}
+                <li>
+                    <a href="/thread/{{_id}}">{{title}}</a>
                     <p style="margin-bottom: -10px; font-size: 12px">Replies: {{replies}}</p>
                     <p class="poster">Posted by: {{username}} on {{date}}</p>
-                    <hr>
-                </li>
+                <hr></li>
             {{/each}}
         </ul>
     </div>

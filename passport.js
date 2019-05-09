@@ -6,7 +6,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 
-var router = express.Router();
+const router = express.Router();
 
 /* SETUP */
 router.use(express.static('public'));
@@ -14,7 +14,7 @@ router.use(session({
     secret: 'cats',
     resave: false,
     saveUninitialized: true
-    }));
+}));
     
 router.use(bodyParser.urlencoded({ extended: false }));
 
@@ -31,9 +31,9 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-    var db = utils.getDb();
+    let db = utils.getDb();
 
-    var ObjectId = utils.getObjectId();
+    let ObjectId = utils.getObjectId();
 
     db.collection('users').findOne({
         _id: new ObjectId(id)
@@ -55,11 +55,13 @@ router.post('/login',
 
 /* LOCAL AUTHENTICATION */
 passport.use(new LocalStrategy((username, password, done) => {
-
-    var db = utils.getDb();
+    let db = utils.getDb();
 
     db.collection('users').findOne({
-        username: username,
+        $or: [
+            {username: username},
+            {email: username}
+        ]
     }, (err, user) => {
         if (err || user == undefined) {
             return done(null, false);
@@ -69,13 +71,11 @@ passport.use(new LocalStrategy((username, password, done) => {
             return done(null, false);
         }
     });
-}
-));
+}));
 
 router.use((req, res, next) => {
     res.locals.user = req.user;
     next();
 });
-
 
 module.exports = router;

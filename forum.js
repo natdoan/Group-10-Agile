@@ -3,11 +3,10 @@ const utils = require('./utils');
 const pass = require('./passport.js');
 const {DateTime} = require('luxon');
 
-var router = express.Router();
+const router = express.Router();
 
 router.use(pass);
 
-// Add post to the db
 router.post('/add_post', add_post);
 router.post('/add_reply', add_reply);
 router.post('/delete_post', delete_post);
@@ -19,11 +18,12 @@ function get_date() {
 }
 
 function add_post(request, response) {
-    var title = request.body.title;
-    var message = request.body.message;
-    var username = request.user.username;
+    let title = request.body.title;
+    let message = request.body.message;
+    let username = request.user.username;
+    let category = request.body.category;
 
-    var db = utils.getDb();
+    let db = utils.getDb();
 
     db.collection('messages').insertOne({
         title: title,
@@ -31,7 +31,9 @@ function add_post(request, response) {
         username: username,
         type: 'thread',
         date: get_date(),
-        thread_id: null
+        thread_id: null,
+        category: category,
+        replies: 0
     }, (err, result) => {
         if (err) {
             response.send('Unable to post message');
@@ -41,18 +43,18 @@ function add_post(request, response) {
 }
 
 function edit_post(request, response) {
-    var thread_id = request.body.id;
-    var edited_message = request.body.edit_textarea;
+    let thread_id = request.body.id;
+    let edited_message = request.body.edit_textarea;
 
-    var db = utils.getDb();
-    var ObjectId = utils.getObjectId();
+    let db = utils.getDb();
+    let ObjectId = utils.getObjectId();
     
     db.collection('messages').findOneAndUpdate({
         _id: new ObjectId(thread_id)
     }, {
         $set: {
             message: edited_message,
-            edited_date: "Last edit: " + get_date()
+            edited_date: "| Last edit: " + get_date()
         }
     }, (err, result) => {
         if (err) {
@@ -63,11 +65,10 @@ function edit_post(request, response) {
 }
 
 function delete_post(request, response) {
-    var thread_id = request.body.id;
-    var username = request.user.username;
+    let thread_id = request.body.id;
 
-    var db = utils.getDb();
-    var ObjectId = utils.getObjectId();
+    let db = utils.getDb();
+    let ObjectId = utils.getObjectId();
 
     db.collection('messages').deleteMany({
         $or:[
@@ -83,11 +84,12 @@ function delete_post(request, response) {
 }
 
 function add_reply(request, response) {
-    var reply = request.body.reply;
-    var username = request.user.username;
-    var thread_id = request.body.id;
+    let reply = request.body.reply;
+    let username = request.user.username;
+    let thread_id = request.body.id;
 
-    var db = utils.getDb();
+    let ObjectId = utils.getObjectId();
+    let db = utils.getDb();
 
     db.collection('messages').insertOne({
         message: reply,
@@ -99,28 +101,32 @@ function add_reply(request, response) {
         if (err) {
             response.send('Unable to post message');
         }
-        response.redirect('back');
+        db.collection('messages').findOneAndUpdate({
+            _id: new ObjectId(thread_id)
+        }, {
+            $inc: {
+                replies: 1
+            }
+        }, (err, result) => {
+            response.redirect('back');
+        });
     });
+    
 }
 
 function edit_reply(request, response) {
-    var reply_id = request.body.reply_id;
-    // var reply_username = request.body.reply_username;
-    var edited_reply = request.body.edit_reply_textarea;
+    let reply_id = request.body.reply_id;
+    let edited_reply = request.body.edit_reply_textarea;
 
-    // console.log("reply id is " + reply_id);    
-    // console.log("reply's author is " + reply_username);
-    // console.log("current reply says " + edited_reply);
-
-    var db = utils.getDb();
-    var ObjectId = utils.getObjectId();
+    let db = utils.getDb();
+    let ObjectId = utils.getObjectId();
     
     db.collection('messages').findOneAndUpdate({
         _id: new ObjectId(reply_id)
     }, {
         $set: {
             message: edited_reply,
-            edited_date: "Last edit: " + get_date()
+            edited_date: "| Last edit: " + get_date()
         }
     }, (err, result) => {
         if (err) {
@@ -132,5 +138,7 @@ function edit_reply(request, response) {
 
 module.exports = {
   get_date: get_date,
-  router: router
+  router: router,
+  add_post: add_post,
+  edit_reply: edit_reply,
 };

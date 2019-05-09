@@ -172,7 +172,7 @@ input[type=password]:focus {
 
 .message_list > li {
     float: none;
-    padding: 15px 15px 0 15px;
+    /* padding: 15px 15px 0 15px; */
     margin: 10px;
 }
 
@@ -278,7 +278,13 @@ ul {
     font-style: italic;
 }
 
+.opmessage {
+    padding-top: 14px
+}
 
+.replyspace {
+    margin-top: -15px;
+}
 /* ------------------------------------------- Footer CSS ------------------------------------------- */
 .flex-wrapper {
     display: flex;

@@ -9,9 +9,9 @@
         <div id="thread_container">
             <div id="op_container">
                 <h1>{{heading}}</h1>
-                <p>{{op_message}}</p>
-                <div class="edittext">By: {{poster}}</div>
-                <div class="edittext">Posted: {{date}}, {{edited_date}}</div>
+                <div class="edittext">By: <b>{{poster}}</b></div>
+                <p class="opmessage">{{op_message}}</p>
+                <div class="edittext">Posted: {{date}} {{edited_date}}</div>
                 <br>
 
                 {{#if isOP}}
@@ -46,17 +46,17 @@
 
                 <ul>
                 {{#each reply}}
-                    <p class="edittext">{{username}} replied on {{date}}</p>
-                    <p class="edittext">{{edited_date}}</p>
+                    <p class="edittext"><b>{{username}}</b> replied on {{date}} {{edited_date}}</p>
                     <li>
-                        {{message}}
+                        <div class="replyspace">{{message}}
 
                         {{#if ../isAuthenticated}}
                         {{#compare_user ../curr_user username}}
                         <button onclick="show_edit_reply_form()" class="form_button reply_button">Edit</button>
                         {{/compare_user}}
                         {{/if}}
-
+                        </div>
+                        
                         <form method="post" action="/edit_reply" id="edit_reply_form">
                             <input type="hidden" name="reply_id" value={{_id}}>
                             <input type="hidden" name="reply_username" value={{username}}><br>
