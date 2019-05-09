@@ -9,7 +9,7 @@
         <div id="thread_container">
             <div id="op_container">
                 <h1>{{heading}}</h1>
-                <div class="edittext">By: {{poster}}</div>
+                <div class="edittext">By: <b>{{poster}}</b></div>
                 <p class="opmessage">{{op_message}}</p>
                 <div class="edittext">Posted: {{date}} {{edited_date}}</div>
                 <br>
@@ -46,7 +46,7 @@
 
                 <ul>
                 {{#each reply}}
-                    <p class="edittext">{{username}} replied on {{date}} {{edited_date}}</p>
+                    <p class="edittext"><b>{{username}}</b> replied on {{date}} {{edited_date}}</p>
                     <li>
                         <div class="replyspace">{{message}}
 

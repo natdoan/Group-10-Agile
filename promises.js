@@ -59,7 +59,7 @@ const category_promise = (param_category) => {
         let db = utils.getDb();
 
         db.collection('messages').find({
-            $and: [
+            $and:[
                 {type: "thread"},
                 {category: param_category}
             ]
@@ -73,7 +73,6 @@ const category_promise = (param_category) => {
         });
     });
 };
-
 
 module.exports = {
     messagePromise: messagePromise,

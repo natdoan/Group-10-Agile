@@ -97,37 +97,22 @@ app.get('/new_post', checkAuthentication, (request, response) => {
 
 // Dynamically generated endpoint for threads
 app.get('/thread/:id', async (request, response) => {
-    var thread = await promises.threadPromise(request.params.id);
+    let thread = await promises.threadPromise(request.params.id);
 
-    var replies = await promises.replyPromise(request.params.id);
+    let replies = await promises.replyPromise(request.params.id);
 
     // Checks if thread owner matches current user
-    var isOP = false;
+    let isOP = false;
     if (request.user != undefined){
         if (request.user.username == thread.username) {
             isOP = true;
         }
     }
-
-    // let i;
-    // let isReplyOP = false;
-    // for (i = 0; i < replies.length; i++){
-    //     // console.log(replies[i].username + " posted on " + replies[i].date);
-    //     if (request.user != undefined) {
-    //         if (request.user.username == replies[i].username) {
-    //             // console.log(replies[i].username + " posted on " + replies[i].date);
-    //             isReplyOP = replies[i].username;
-    //             // console.log(isReplyOP);
-    //         }
-    //     }
-    // }
-    
     
     // Passes current user to render if logged in
     let curr_user;
     if (request.user != undefined) {
         curr_user = request.user.username;
-        // console.log("curr user is type " + typeof curr_user);
     }
 
     response.render('thread.hbs', {
@@ -153,10 +138,7 @@ app.get('/thread/:id', async (request, response) => {
 });
 
 app.get("/forum/:category", async (request, response) => {
-    // console.log(request.params.category);
     let threads = await promises.category_promise(request.params.category);
-    
-    // console.log(threads);
     
     response.render("category.hbs", {
         title: `${request.params.category} Threads`,
@@ -164,6 +146,5 @@ app.get("/forum/:category", async (request, response) => {
         thread: threads
     });
 });
-
 
 module.exports = app;

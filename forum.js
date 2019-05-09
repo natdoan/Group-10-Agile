@@ -18,10 +18,10 @@ function get_date() {
 }
 
 function add_post(request, response) {
-    var title = request.body.title;
-    var message = request.body.message;
-    var username = request.user.username;
-    var category = request.body.category;
+    let title = request.body.title;
+    let message = request.body.message;
+    let username = request.user.username;
+    let category = request.body.category;
 
     let db = utils.getDb();
 
@@ -43,11 +43,11 @@ function add_post(request, response) {
 }
 
 function edit_post(request, response) {
-    var thread_id = request.body.id;
-    var edited_message = request.body.edit_textarea;
+    let thread_id = request.body.id;
+    let edited_message = request.body.edit_textarea;
 
-    var db = utils.getDb();
-    var ObjectId = utils.getObjectId();
+    let db = utils.getDb();
+    let ObjectId = utils.getObjectId();
     
     db.collection('messages').findOneAndUpdate({
         _id: new ObjectId(thread_id)
@@ -66,7 +66,6 @@ function edit_post(request, response) {
 
 function delete_post(request, response) {
     let thread_id = request.body.id;
-    let username = request.user.username;
 
     let db = utils.getDb();
     let ObjectId = utils.getObjectId();
@@ -89,7 +88,7 @@ function add_reply(request, response) {
     let username = request.user.username;
     let thread_id = request.body.id;
 
-    var ObjectId = utils.getObjectId();
+    let ObjectId = utils.getObjectId();
     let db = utils.getDb();
 
     db.collection('messages').insertOne({
@@ -116,16 +115,11 @@ function add_reply(request, response) {
 }
 
 function edit_reply(request, response) {
-    var reply_id = request.body.reply_id;
-    // var reply_username = request.body.reply_username;
-    var edited_reply = request.body.edit_reply_textarea;
+    let reply_id = request.body.reply_id;
+    let edited_reply = request.body.edit_reply_textarea;
 
-    // console.log("reply id is " + reply_id);    
-    // console.log("reply's author is " + reply_username);
-    // console.log("current reply says " + edited_reply);
-
-    var db = utils.getDb();
-    var ObjectId = utils.getObjectId();
+    let db = utils.getDb();
+    let ObjectId = utils.getObjectId();
     
     db.collection('messages').findOneAndUpdate({
         _id: new ObjectId(reply_id)
