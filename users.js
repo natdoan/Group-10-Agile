@@ -14,16 +14,15 @@ function saveUser(request, response) {
     let username = request.body.username;
     let password = request.body.password;
 
+    let email_insensitve = new RegExp(email, "i");
+    let userane_insensitive = new RegExp(username, "i");
+
     let db = utils.getDb();
 
     let query = {
         $or: [
-            {email: email},
-            {email: email.toLowerCase()},
-            {email: email.toUpperCase()},
-            {username: username},
-            {username: username.toLowerCase()},
-            {username: username.toUpperCase()}
+            {email: email_insensitve},
+            {username: userane_insensitive}
         ]
     };
 

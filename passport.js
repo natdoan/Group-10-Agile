@@ -57,14 +57,13 @@ router.post('/login',
 passport.use(new LocalStrategy((login, password, done) => {
     let db = utils.getDb();
 
+    let username_insensitive = new RegExp(login, "i");
+    let email_insensitive = new RegExp(login, "i");
+
     db.collection('users').findOne({
         $or: [
-            {username: login},
-            {username: login.toLowerCase()},
-            {username: login.toUpperCase()},
-            {email: login},
-            {email: login.toLowerCase()},
-            {email: login.toUpperCase()}
+            {username: username_insensitive},
+            {email: email_insensitive}
         ]
     }, (err, user) => {
         if (err || user == undefined) {
