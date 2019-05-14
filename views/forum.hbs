@@ -33,7 +33,7 @@
             {{#each message}}
                 <li><a href="/thread/{{_id}}">{{title}}</a><p style="font-size: 16px; text-align: right; margin-top: -24px"><a href="/forum/{{category}}">[{{category}}]</a></p>     
                     <p style="margin-bottom: -16px; font-size: 0.8em">Replies: {{replies}}</p>
-                    <p class="poster">Posted by: {{username}} on {{date}}</p>
+                    <p class="poster">Posted by: <a href=/user/{{username}}>{{username}}</a> on {{date}}</p>
                     <hr>
                 </li>
             {{/each}}

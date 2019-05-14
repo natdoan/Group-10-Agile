@@ -133,7 +133,7 @@ app.get('/thread/:id', async (request, response) => {
         if (current == reply) {
             return options.fn(this);
         }
-        return options.inverse(this);
+        return options.inverse(this);   
     });
 });
 
@@ -145,6 +145,25 @@ app.get("/forum/:category", async (request, response) => {
         heading: request.params.category,
         thread: threads
     });
+});
+
+app.get("/user/:username", async (request, response) => {
+    let user = await promises.user_promise(request.params.username);
+
+    let current_user;
+    if (request.user != undefined) {
+        current_user = request.user.username;
+    }
+
+    response.render("profile.hbs", {
+        username: user.username,
+        email: user.email,
+        description: user.description,
+        current_user: current_user
+    });
+
+    // console.log("username: " + user.username);
+    // console.log("_id: " + user._id);
 });
 
 module.exports = app;

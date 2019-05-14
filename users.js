@@ -15,14 +15,14 @@ function saveUser(request, response) {
     let password = request.body.password;
 
     let email_insensitve = new RegExp(email, "i");
-    let userane_insensitive = new RegExp(username, "i");
+    let username_insensitive = new RegExp(username, "i");
 
     let db = utils.getDb();
 
     let query = {
         $or: [
             {email: email_insensitve},
-            {username: userane_insensitive}
+            {username: username_insensitive}
         ]
     };
 
@@ -32,6 +32,7 @@ function saveUser(request, response) {
                 email: email,
                 username: username,
                 password: bcrypt.hashSync(password, 10),
+                description: null
             }, (err, result) => {
                 if (err) {
                     response.send('Unable to register user');

@@ -13,13 +13,14 @@
     <div id="navbarText" class="collapse navbar-collapse justify-content-end">
         <ul class="navbar-nav">
             {{#if isAuthenticated}}
+            <a href=/user/{{user.username}}>
                 <li class="nav-item">
                     <p class="nav-link">Welcome, {{user.username}}</p>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/logout">Logout</a>
                 </li>
-
+            </a>
             {{else}}
                 <li class="nav-item">
                     <a class="nav-link" href="/registration">Register</a>

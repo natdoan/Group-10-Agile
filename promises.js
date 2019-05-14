@@ -74,9 +74,29 @@ const category_promise = (param_category) => {
     });
 };
 
+const user_promise = (param_user) => {
+    return new Promise((resolve, reject) => {
+        let db = utils.getDb();
+        
+        query = {
+            username: param_user
+        };
+
+        db.collection("users").findOne(
+            query, (err, result) => {
+                if (err) {
+                    reject(err);
+                }
+                resolve(result);
+            }
+        )
+    });
+};
+
 module.exports = {
     messagePromise: messagePromise,
     threadPromise: threadPromise,
     replyPromise: replyPromise,
-    category_promise: category_promise
+    category_promise: category_promise,
+    user_promise: user_promise
 };
