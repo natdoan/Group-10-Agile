@@ -171,4 +171,12 @@ app.get("/user/:username", async (request, response) => {
     });
 });
 
+app.get("/user/:username/threads", async (request, response) => {
+    let user_threads = await promises.user_threads_promise(request.params.username);
+
+    response.render("user_threads.hbs", {
+        title: `Threads by ${request.params.username}`,
+        thread: user_threads
+    });
+})
 module.exports = app;
