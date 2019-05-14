@@ -6,6 +6,7 @@ const utils = require('./utils');
 const router = express.Router();
 
 router.post('/saveUser', saveUser);
+router.post("/update_desc", update_desc);
 
 module.exports = router;
 
@@ -42,5 +43,25 @@ function saveUser(request, response) {
         } else {
             response.send("An account with that username or email already exists.");
         }
+    });
+}
+
+function update_desc(request, response) {
+    let username = request.user.username;
+    let description = request.body.description;
+
+    let db = utils.getDb();
+
+    db.collection("users").findOneAndUpdate({
+        username: username
+    }, {
+        $set: {
+            description: description
+        }
+    }, (err, result) => {
+        if (err) {
+            response.send("Unable to update description");
+        }
+        response.redirect("back");
     });
 }

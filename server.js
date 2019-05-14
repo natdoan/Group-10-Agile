@@ -156,14 +156,19 @@ app.get("/user/:username", async (request, response) => {
     }
 
     response.render("profile.hbs", {
+        title: `${request.params.username}'s Profile`,
         username: user.username,
         email: user.email,
         description: user.description,
         current_user: current_user
     });
 
-    // console.log("username: " + user.username);
-    // console.log("_id: " + user._id);
+    hbs.registerHelper('compare_user', (current, reply, options) => {
+        if (current == reply) {
+            return options.fn(this);
+        }
+        return options.inverse(this);   
+    });
 });
 
 module.exports = app;

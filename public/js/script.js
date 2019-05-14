@@ -47,13 +47,27 @@ function registration_alert() {
 }
 
 function show_edit_form() {
-    var form = document.getElementById('edit_post_form');
+    let form = document.getElementById('edit_post_form');
+
+    if (form.style.display == "block") {
+        form.style.display = "none";
+    } else {
+        form.style.display = "block";
+    }
+}
+
+function show_edit_reply_form() {
+    let form = document.getElementById("edit_reply_form");
 
     form.style.display="block";
 }
 
-function show_edit_reply_form() {
-    var edit_form = document.getElementById("edit_reply_form");
+function show_update_desc_form() {
+    let form = document.getElementById("update_desc_form");
 
-    edit_form.style.display="block";
+    if (form.style.display == "block") {
+        form.style.display = "none";
+    } else {
+        form.style.display = "block";
+    }
 }
