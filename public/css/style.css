@@ -260,6 +260,10 @@ ul {
     display: none
 }
 
+#update_img_form {
+    display: none
+}
+
 /* ------------------------------------------- Footer CSS ------------------------------------------- */
 .flex-wrapper {
     display: flex;
