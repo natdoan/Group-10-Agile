@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> header }}
+<body>
+{{> menu}}
+<div class="profile">
+    <p><b>Username</b>: {{username}}</p>
+    <p><b>Email</b>: {{email}}</p>
+    <p><b>Description</b>: <i>{{description}}</i></p>
+</div>
+<a href="/user/{{username}}/threads">Find all threads by {{username}}</a>
+<br>
+<!-- Only appears if user is logged in and viewing own profile --->
+{{#if isAuthenticated}}
+{{#compare_user current_user username}}
+<button id="update_desc_button" onclick="show_update_desc_form()">Update Description</button>
+<br>
+<form method="post" action="/update_desc" id="update_desc_form">
+    <textarea name="description" rows="5" cols="30" maxlength="200"></textarea>
+    <br>
+    <input type="submit" value="Save" class="form_button">
+    <br>
+    Add or update your profile's description (max of 200 characters)
+</form>
+{{/compare_user}}
+{{/if}}
+{{> footer}}
+</body>
+<script src="/js/script.js"></script>
+</html>

@@ -133,7 +133,7 @@ app.get('/thread/:id', async (request, response) => {
         if (current == reply) {
             return options.fn(this);
         }
-        return options.inverse(this);
+        return options.inverse(this);   
     });
 });
 
@@ -147,4 +147,36 @@ app.get("/forum/:category", async (request, response) => {
     });
 });
 
+app.get("/user/:username", async (request, response) => {
+    let user = await promises.user_promise(request.params.username);
+
+    let current_user;
+    if (request.user != undefined) {
+        current_user = request.user.username;
+    }
+
+    response.render("profile.hbs", {
+        title: `${request.params.username}'s Profile`,
+        username: user.username,
+        email: user.email,
+        description: user.description,
+        current_user: current_user
+    });
+
+    hbs.registerHelper('compare_user', (current, reply, options) => {
+        if (current == reply) {
+            return options.fn(this);
+        }
+        return options.inverse(this);   
+    });
+});
+
+app.get("/user/:username/threads", async (request, response) => {
+    let user_threads = await promises.user_threads_promise(request.params.username);
+
+    response.render("user_threads.hbs", {
+        title: `Threads by ${request.params.username}`,
+        thread: user_threads
+    });
+})
 module.exports = app;
