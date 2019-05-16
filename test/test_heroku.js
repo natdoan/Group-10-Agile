@@ -195,3 +195,15 @@ describe('Update profile picture', function() {
         agent.close();
     });
 });
+
+describe('Get profile pages', function () {
+    it("Should return tester's profile page", function (done) {
+        chai.request('https://polar-ocean-59620.herokuapp.com')
+            .get('/user/tester')
+            .end(function(err, res) {
+                expect('Content-Type', "text/html; charset=utf-8");
+                expect(res).to.have.status(200);
+                done()
+            });
+    });
+});
