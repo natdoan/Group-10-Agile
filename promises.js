@@ -74,9 +74,50 @@ const category_promise = (param_category) => {
     });
 };
 
+const user_promise = (param_user) => {
+    return new Promise((resolve, reject) => {
+        let db = utils.getDb();
+        
+        query = {
+            username: param_user
+        };
+
+        db.collection("users").findOne(
+            query, (err, result) => {
+                if (err) {
+                    reject(err);
+                }
+                resolve(result);
+            }
+        )
+    });
+};
+
+const user_threads_promise = (param_user) => {
+    return new Promise ((resolve, reject) => {
+        let db = utils.getDb();
+
+        db.collection('messages').find({
+            $and:[
+                {type: "thread"},
+                {username: param_user}
+            ]
+        }, {
+            _id: 0
+        }).toArray((err, result) => {
+            if (err) {
+                reject(err);
+            }
+            resolve(result.reverse());
+        });
+    });
+};
+
 module.exports = {
     messagePromise: messagePromise,
     threadPromise: threadPromise,
     replyPromise: replyPromise,
-    category_promise: category_promise
+    category_promise: category_promise,
+    user_promise: user_promise,
+    user_threads_promise: user_threads_promise
 };
