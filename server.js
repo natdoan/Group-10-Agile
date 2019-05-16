@@ -2,7 +2,7 @@ const port = process.env.PORT || 8080;
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const hbs = require('hbs');
+const hbs = require('express-hbs');
 
 const utils = require('./utils.js');
 const register = require('./users.js');
@@ -17,7 +17,14 @@ app.listen(port, () => {
     utils.init();
 });
 
-hbs.registerPartials(__dirname + '/views/partials');
+app.engine('hbs', hbs.express4({
+    partialsDir: __dirname + '/views/partials'
+}));
+
+app.set('view engine', 'hbs');
+app.set('views', __dirname + '/views');
+
+//hbs.registerPartials(__dirname + '/views/partials');
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({
@@ -31,6 +38,13 @@ hbs.registerHelper('port', () => {
 hbs.registerHelper('year', () => {
     return new Date().getFullYear();
 });
+
+hbs.registerAsyncHelper('profileImage', (username, cb) => {
+    promises.user_promise(username).then((user) => {
+        cb(user.image)
+    })
+});
+
 
 app.use(pass);
 app.use(register);
