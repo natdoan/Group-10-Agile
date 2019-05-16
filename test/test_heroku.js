@@ -16,8 +16,8 @@ describe('Date/Time Function', function(){
     it('app should return current date and time', function(){
         let result = date();
         assert.equal(result, get_date_test());
-    })
-})
+    });
+});
 
 describe('GET /', function () {
     it("should return homepage", function (done) {
@@ -26,8 +26,8 @@ describe('GET /', function () {
             .end(function(err, res) {
                 expect('Content-Type', "text/html; charset=utf-8");
                 expect(res).to.have.status(200);
-                done()
-            })
+                done();
+            });
     });
 });
 
@@ -56,10 +56,10 @@ describe('Login', function () {
             .send({username: 'tester', password: 'test'})
             .then(function (res) {
                 expect(res).to.redirectTo('https://polar-ocean-59620.herokuapp.com/')
-                done()
+                done();
             });
-    })
-})
+    });
+});
 
 
 describe('Invalid login', function () {
@@ -72,10 +72,10 @@ describe('Invalid login', function () {
                 var url = /login/i;
                 var result = url.test(res.redirects);
                 assert.equal(result, true);
-                done()
-            })
-    })
-})
+                done();
+            });
+    });
+});
 
 describe('Add post', function() {
     it('Should add post to database', function(done) {
@@ -94,12 +94,12 @@ describe('Add post', function() {
                         var page_text = /test title new/i;
                         var result = page_text.test(str);
                         assert.equal(result, true);
-                        done()
+                        done();
                     });
             });
         agent.close();
-    })
-})
+    });
+});
 
 describe('Edit reply', function() {
     it('Should successfully edit post (with matching random number)', function(done) {
@@ -122,13 +122,13 @@ describe('Edit reply', function() {
                                 var patt = new RegExp(random_number)
                                 var result = patt.test(str);
                                 assert.equal(result, true);
-                                done()
-                            })
+                                done();
+                            });
                     });
             });
         agent.close();
-    })
-})
+    });
+});
 
 describe('Post with category', function() {
     it('should add post with category Help', function(done) {
@@ -165,6 +165,33 @@ describe('Get category pages', function () {
                 expect('Content-Type', "text/html; charset=utf-8");
                 expect(res).to.have.status(200);
                 done()
-            })
+            });
+    });
+});
+
+describe('Update profile picture', function() {
+    it('Should update user\'s profile picture', function(done) {
+        var agent = chai.request.agent('https://polar-ocean-59620.herokuapp.com')
+ 
+        agent
+            .post('/login')
+            .type('form')
+            .send({username: 'tester', password: 'test'})
+            .then(function(res) {
+                return agent
+                    .post('/update_img')
+                    .type('form')
+                    .send({image: 'https://i.imgur.com/aSr755J'})
+                    .then(function(res) {
+                        var str = res.text;
+                        console.log(str)
+                        var page_text = /https:\/\/i.imgur.com\/aSr755J/i;
+                        var result = page_text.test(str);
+                        
+                        assert.equal(result, true);
+                        done();
+                    });
+            });
+        agent.close();
     });
 });
