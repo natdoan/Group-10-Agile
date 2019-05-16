@@ -7,6 +7,10 @@ input {
 }
 
 /* ------------------------------------------- MENU BAR ------------------------------------------- */
+.companyname{
+    text-decoration-color: white;
+}
+
 .home_link {
     padding: 0;
     margin: 0;
@@ -305,6 +309,30 @@ ul {
 }
 
 /* ------------------------------------------- PROFILE PAGE ------------------------------------------- */
+.profile{
+    text-align: center;
+}
+.updates{
+    text-align: center;
+}
+
+button{
+    position: relative;
+    display: inline-block;
+    padding: 5px 10px;
+    background: #008edb;
+    border-radius: 5px;
+    border: none;
+
+
+    text-decoration: none;
+    color: #fff;
+    font-size: 15px;
+    font-family: "Arial", sans-serif;
+    font-weight: 100;
+
+}
+
 #update_desc_form {
     display: none
 }

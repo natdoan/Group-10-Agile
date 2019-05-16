@@ -3,15 +3,24 @@
 {{> header }}
 <body>
 {{> menu}}
+<br>
 <div class="profile">
     <img src={{image}} height="100" width="100" alt="{{username}}'s Image">
+    <br>
+    <br>
     <p><b>Username</b>: {{username}}</p>
+{{#if isAuthenticated}}
+    {{#compare_user current_user username}}
     <p><b>Email</b>: {{email}}</p>
+    {{/compare_user}}
+{{/if}}
     <p><b>Description</b>: <i>{{description}}</i></p>
-</div>
+
 <a href="/user/{{username}}/threads">Find all threads by {{username}}</a>
+</div>
 <br>
 <!-- Only appears if user is logged in and viewing own profile --->
+<div class="updates">
 {{#if isAuthenticated}}
 {{#compare_user current_user username}}
 <button id="update_img_button" onclick="show_update_img_form()">Update Image</button>
@@ -20,6 +29,7 @@
     Update your profile picture
     <br>
     <input type="url" name="image" placeholder="Image URL"></textarea>
+    <br>
     <br>
     <input type="submit" value="Save" class="form_button">
     <br>
@@ -30,13 +40,13 @@
 <form method="post" action="/update_desc" id="update_desc_form">
     Update your profile description (max of 200 characters)
     <br>
-    <textarea name="description" placeholder="Description" rows="5" cols="30" maxlength="200"></textarea>
+    <textarea name="description" placeholder="Description" rows="2" cols="100" maxlength="200"></textarea>
     <br>
     <input type="submit" value="Save" class="form_button">
     <br>
 </form>
 <br>
-
+    </div>
 {{/compare_user}}
 {{/if}}
 {{> footer}}
