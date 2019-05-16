@@ -71,3 +71,13 @@ function show_update_desc_form() {
         form.style.display = "block";
     }
 }
+
+function show_update_img_form() {
+    let form = document.getElementById("update_img_form");
+
+    if (form.style.display == "block") {
+        form.style.display = "none";
+    } else {
+        form.style.display = "block";
+    }
+}

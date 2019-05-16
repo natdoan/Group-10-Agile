@@ -4,6 +4,7 @@
 <body>
 {{> menu}}
 <div class="profile">
+    <img src={{image}} height="100" width="100" alt="{{username}}'s Image">
     <p><b>Username</b>: {{username}}</p>
     <p><b>Email</b>: {{email}}</p>
     <p><b>Description</b>: <i>{{description}}</i></p>
@@ -13,15 +14,29 @@
 <!-- Only appears if user is logged in and viewing own profile --->
 {{#if isAuthenticated}}
 {{#compare_user current_user username}}
-<button id="update_desc_button" onclick="show_update_desc_form()">Update Description</button>
+<button id="update_img_button" onclick="show_update_img_form()">Update Image</button>
 <br>
-<form method="post" action="/update_desc" id="update_desc_form">
-    <textarea name="description" rows="5" cols="30" maxlength="200"></textarea>
+<form method="post" action="/update_img" id="update_img_form">
+    Update your profile picture
+    <br>
+    <input type="url" name="image" placeholder="Image URL"></textarea>
     <br>
     <input type="submit" value="Save" class="form_button">
     <br>
-    Add or update your profile's description (max of 200 characters)
 </form>
+<br>
+<button id="update_desc_button" onclick="show_update_desc_form()">Update Description</button>
+<br>
+<form method="post" action="/update_desc" id="update_desc_form">
+    Update your profile description (max of 200 characters)
+    <br>
+    <textarea name="description" placeholder="Description" rows="5" cols="30" maxlength="200"></textarea>
+    <br>
+    <input type="submit" value="Save" class="form_button">
+    <br>
+</form>
+<br>
+
 {{/compare_user}}
 {{/if}}
 {{> footer}}

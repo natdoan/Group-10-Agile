@@ -145,10 +145,14 @@ describe('Post Category', function() {
                     .send({title: 'category test', message: 'test message', category: 'Meta'})
                     .then(function(res) {
                         var str = res.text;
-                        var page_text = /Meta/i;
+                        var page_text = /[Meta]/i;
+                        var page_text = /category test/i;
+
                         var result = page_text.test(str);
+                        var result2 = page_text.test(str);
 
                         assert.equal(result, true);
+                        assert.equal(result2, true)
                         done();
                     });
             });

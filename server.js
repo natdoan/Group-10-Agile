@@ -101,6 +101,8 @@ app.get('/thread/:id', async (request, response) => {
 
     let replies = await promises.replyPromise(request.params.id);
 
+    let user = await promises.user_promise(thread.username)
+
     // Checks if thread owner matches current user
     let isOP = false;
     if (request.user != undefined){
@@ -127,6 +129,7 @@ app.get('/thread/:id', async (request, response) => {
         thread: thread,
         edited_date: thread.edited_date,
         curr_user: curr_user,
+        image: user.image
     });
 
     hbs.registerHelper('compare_user', (current, reply, options) => {
@@ -160,7 +163,8 @@ app.get("/user/:username", async (request, response) => {
         username: user.username,
         email: user.email,
         description: user.description,
-        current_user: current_user
+        current_user: current_user,
+        image: user.image
     });
 
     hbs.registerHelper('compare_user', (current, reply, options) => {
