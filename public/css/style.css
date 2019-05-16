@@ -133,6 +133,12 @@ input[type=password]:focus {
     padding: 16px;
 }
 
+@media only screen and (max-width: 600px) {
+    #message_container {
+      width: 100%;
+    }
+  }
+
 #message_container h1 {
     margin-bottom: 0;
 }
@@ -141,6 +147,12 @@ input[type=password]:focus {
     background-color: white;
     list-style: none;
 }
+
+@media only screen and (max-width: 600px) {
+    .message_list {
+      padding: 0;
+    }
+  }
 
 .message_list > li {
     float: none;
@@ -157,6 +169,43 @@ input[type=password]:focus {
     text-align: right;
     margin-top: -20px;
     font-size: 0.8em;
+}
+
+@media only screen and (max-width: 600px) {
+    .poster {
+      margin-top: 25px;
+      text-align: left;
+    }
+  }
+
+.category {
+    font-size: 16px;
+    text-align: right;
+    margin-top: -24px
+}
+
+@media only screen and (max-width: 600px) {
+    .category {
+        text-align: left;
+        margin-top: 0;
+        font-size: 0.8em;
+    }
+}
+
+.replies {
+    margin-bottom: -16px;
+    font-size: 0.8em;
+}
+
+@media only screen and (max-width: 600px) {
+    .replies {
+        margin-top: -16px;
+    }
+}
+
+.forum-username {
+    float: left;
+    margin-right: 10px
 }
 
 .register_add > p,
