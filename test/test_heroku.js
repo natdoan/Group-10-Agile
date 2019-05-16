@@ -172,7 +172,7 @@ describe('Get category pages', function () {
 describe('Update profile picture', function() {
     it('Should update user\'s profile picture', function(done) {
         var agent = chai.request.agent('https://polar-ocean-59620.herokuapp.com')
- 
+
         agent
             .post('/login')
             .type('form')
@@ -181,11 +181,10 @@ describe('Update profile picture', function() {
                 return agent
                     .post('/update_img')
                     .type('form')
-                    .send({image: 'https://i.imgur.com/aSr755J'})
+                    .send({image: 'https://i.imgur.com/aSr755J.jpg'})
                     .then(function(res) {
                         var str = res.text;
-                        console.log(str)
-                        var page_text = /https:\/\/i.imgur.com\/aSr755J/i;
+                        var page_text = /https:\/\/i.imgur.com\/aSr755J.jpg/i;
                         var result = page_text.test(str);
                         
                         assert.equal(result, true);
