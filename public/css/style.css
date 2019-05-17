@@ -1,7 +1,5 @@
 body {
     font-family: "Arial", sans-serif;
-
-
 }
 
 input {
@@ -9,7 +7,9 @@ input {
 }
 
 /* ------------------------------------------- MENU BAR ------------------------------------------- */
-
+.companyname{
+    text-decoration-color: white;
+}
 
 .home_link {
     padding: 0;
@@ -20,50 +20,36 @@ input {
     padding: 5px;
     max-height: 52px;
     width: auto;
-
 }
-
 
 .navbar {
     background-color: black;
     max-height: 53px;
-
 }
 
 .navbar-brand, .nav-link {
     color: white;
     font-family: "Arial", sans-serif ;font-size: 17px;
     font-weight: initial;
-
     margin-top: 4px;
-
-
-
 }
 
 .nav-item {
-
     height: 53px;
     background:#008edb;
     border: solid 1px #006aa3;
     padding-left: 7px;
     padding-right: 7px;
     float: right;
-
 }
 
 .nav-item:hover, .nav-link:hover {
     background: #00a5ff;
     color: white;
     text-decoration: none;
-
-
 }
 
 /* ------------------------------------------- LOGIN PAGE ------------------------------------------- */
-
-
-
 .username {
     display: block;
     color: white;
@@ -76,16 +62,13 @@ input {
 .form_container {
     width: 80%;
     margin: auto;
-
     padding: 16px;
     background-color: white;
-
 }
 
 #form_submit {
     margin-top: 20px;
 }
-
 
 .form_button {
     position: relative;
@@ -95,17 +78,12 @@ input {
     border-radius: 5px;
     border: none;
 
-
     /* text styles */
     text-decoration: none;
     color: #fff;
     font-size: 15px;
     font-family: "Arial", sans-serif;
     font-weight: 100;
-
-
-
-
 }
 
 .form_button:hover {
@@ -147,12 +125,10 @@ input[type=password]:focus {
 }
 
 /* ------------------------------------------- NEW POST PAGE ------------------------------------------- */
-
 .post_text {
     width: 100%;
     padding: 15px;
 }
-
 
 /* ------------------------------------------- FORUM PAGE ------------------------------------------- */
 #message_container {
@@ -160,6 +136,12 @@ input[type=password]:focus {
     margin: auto;
     padding: 16px;
 }
+
+@media only screen and (max-width: 600px) {
+    #message_container {
+      width: 100%;
+    }
+  }
 
 #message_container h1 {
     margin-bottom: 0;
@@ -169,6 +151,12 @@ input[type=password]:focus {
     background-color: white;
     list-style: none;
 }
+
+@media only screen and (max-width: 600px) {
+    .message_list {
+      padding: 0;
+    }
+  }
 
 .message_list > li {
     float: none;
@@ -183,15 +171,51 @@ input[type=password]:focus {
 
 .poster {
     text-align: right;
-    margin: 0;
+    margin-top: -20px;
     font-size: 0.8em;
+}
+
+@media only screen and (max-width: 600px) {
+    .poster {
+      margin-top: 25px;
+      text-align: left;
+    }
+  }
+
+.category {
+    font-size: 16px;
+    text-align: right;
+    margin-top: -24px
+}
+
+@media only screen and (max-width: 600px) {
+    .category {
+        text-align: left;
+        margin-top: 0;
+        font-size: 0.8em;
+    }
+}
+
+.replies {
+    margin-bottom: -16px;
+    font-size: 0.8em;
+}
+
+@media only screen and (max-width: 600px) {
+    .replies {
+        margin-top: -16px;
+    }
+}
+
+.forum-username {
+    float: left;
+    margin-right: 10px
 }
 
 .register_add > p,
 .register_add > button{
     text-align: right;
     margin-top: 0;
-
 }
 
 a {
@@ -224,8 +248,6 @@ a {
     float: left;
     padding-right: 15px;
 }
-
-
 
 /* ------------------------------------------- THREAD PAGE ------------------------------------------- */
 #thread_container {
@@ -285,6 +307,40 @@ ul {
 .replyspace {
     margin-top: -15px;
 }
+
+/* ------------------------------------------- PROFILE PAGE ------------------------------------------- */
+.profile{
+    text-align: center;
+}
+.updates{
+    text-align: center;
+}
+
+button{
+    position: relative;
+    display: inline-block;
+    padding: 5px 10px;
+    background: #008edb;
+    border-radius: 5px;
+    border: none;
+
+
+    text-decoration: none;
+    color: #fff;
+    font-size: 15px;
+    font-family: "Arial", sans-serif;
+    font-weight: 100;
+
+}
+
+#update_desc_form {
+    display: none
+}
+
+#update_img_form {
+    display: none
+}
+
 /* ------------------------------------------- Footer CSS ------------------------------------------- */
 .flex-wrapper {
     display: flex;

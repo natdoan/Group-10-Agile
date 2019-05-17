@@ -32,11 +32,12 @@
 
         <ul class="message_list">
             {{#each thread}}
-                <li>
-                    <a href="/thread/{{_id}}">{{title}}</a>
-                    <p style="margin-bottom: -10px; font-size: 12px">Replies: {{replies}}</p>
-                    <p class="poster">Posted by: {{username}} on {{date}}</p>
-                <hr></li>
+                    <a href="/user/{{username}}"><img class="forum-username" src="{{{profileImage username}}}" height="60" width="60" alt="{{username}}'s Picture"></a>
+                <li><a href="/thread/{{_id}}">{{title}}</a><p class="category"><a href="/forum/{{category}}">[{{category}}]</a></p>     
+                    <p class="replies">Replies: {{replies}}</p>
+                    <p class="poster">Posted by: <a href=/user/{{username}}>{{username}}</a> on {{date}}</p>
+                    <hr>
+                </li>
             {{/each}}
         </ul>
     </div>

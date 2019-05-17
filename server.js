@@ -2,7 +2,7 @@ const port = process.env.PORT || 8080;
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const hbs = require('hbs');
+const hbs = require('express-hbs');
 
 const utils = require('./utils.js');
 const register = require('./users.js');
@@ -17,7 +17,14 @@ app.listen(port, () => {
     utils.init();
 });
 
-hbs.registerPartials(__dirname + '/views/partials');
+app.engine('hbs', hbs.express4({
+    partialsDir: __dirname + '/views/partials'
+}));
+
+app.set('view engine', 'hbs');
+app.set('views', __dirname + '/views');
+
+//hbs.registerPartials(__dirname + '/views/partials');
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({
@@ -31,6 +38,13 @@ hbs.registerHelper('port', () => {
 hbs.registerHelper('year', () => {
     return new Date().getFullYear();
 });
+
+hbs.registerAsyncHelper('profileImage', (username, cb) => {
+    promises.user_promise(username).then((user) => {
+        cb(user.image)
+    })
+});
+
 
 app.use(pass);
 app.use(register);
@@ -101,6 +115,8 @@ app.get('/thread/:id', async (request, response) => {
 
     let replies = await promises.replyPromise(request.params.id);
 
+    let user = await promises.user_promise(thread.username)
+
     // Checks if thread owner matches current user
     let isOP = false;
     if (request.user != undefined){
@@ -127,13 +143,14 @@ app.get('/thread/:id', async (request, response) => {
         thread: thread,
         edited_date: thread.edited_date,
         curr_user: curr_user,
+        image: user.image
     });
 
     hbs.registerHelper('compare_user', (current, reply, options) => {
         if (current == reply) {
             return options.fn(this);
         }
-        return options.inverse(this);
+        return options.inverse(this);   
     });
 });
 
@@ -147,4 +164,37 @@ app.get("/forum/:category", async (request, response) => {
     });
 });
 
+app.get("/user/:username", async (request, response) => {
+    let user = await promises.user_promise(request.params.username);
+
+    let current_user;
+    if (request.user != undefined) {
+        current_user = request.user.username;
+    }
+
+    response.render("profile.hbs", {
+        title: `${request.params.username}'s Profile`,
+        username: user.username,
+        email: user.email,
+        description: user.description,
+        current_user: current_user,
+        image: user.image
+    });
+
+    hbs.registerHelper('compare_user', (current, reply, options) => {
+        if (current == reply) {
+            return options.fn(this);
+        }
+        return options.inverse(this);   
+    });
+});
+
+app.get("/user/:username/threads", async (request, response) => {
+    let user_threads = await promises.user_threads_promise(request.params.username);
+
+    response.render("user_threads.hbs", {
+        title: `Threads by ${request.params.username}`,
+        thread: user_threads
+    });
+})
 module.exports = app;
